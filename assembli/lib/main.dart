@@ -1,5 +1,5 @@
-import 'dart:html';
-import 'package:assembli/courses.dart';
+//import 'dart:html';
+//import 'package:assembli/courses.dart';
 import 'package:flutter/material.dart';
 
 // Log in
@@ -41,7 +41,7 @@ class _LoginDemoState extends State<LoginDemo> {
                     width: 200,
                     height: 150,
                     // Put our assembli logo
-                    child: Image.asset('asset/assembliLogo.png')),
+                    child: Image.asset('assets/assembliLogo.png')),
               ),
             ),
             const Padding(
@@ -71,11 +71,11 @@ class _LoginDemoState extends State<LoginDemo> {
               width: 250,
               decoration: BoxDecoration(
                   color: Colors.blue, borderRadius: BorderRadius.circular(20)),
-              child: FlatButton(
+              child: ElevatedButton(
                 onPressed: () {
                   // Press log in, needs to redirect to courses.dart
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => HomePage()));
+                  //Navigator.push(
+                  //context, MaterialPageRoute(builder: (_) => HomePage()));
                 },
                 child: const Text(
                   'Login',
