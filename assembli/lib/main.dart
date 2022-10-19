@@ -26,12 +26,12 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  int currentPage = 0;    // variable creation
+  int currentPage = 0; // variable creation
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Assembli Draft'),
+        title: const Text('Assembli'),
       ),
       body: const Homepage(),
       floatingActionButton: FloatingActionButton(
@@ -43,15 +43,17 @@ class _LandingPageState extends State<LandingPage> {
       ),
       bottomNavigationBar: NavigationBar(
         destinations: const [
-          NavigationDestination(icon: Icon(Icons.article_outlined), label: 'History' ),
-          NavigationDestination(icon: Icon(Icons.fact_check), label: 'Attendance'),
+          NavigationDestination(
+              icon: Icon(Icons.article_outlined), label: 'Courses'),
+          NavigationDestination(
+              icon: Icon(Icons.fact_check), label: 'Attendance'),
           NavigationDestination(icon: Icon(Icons.person), label: 'Profile')
         ],
-        onDestinationSelected: (int index){
-          setState((){
-          currentPage = index;
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPage = index;
           });
-          debugPrint("dest select"); 
+          debugPrint("dest select");
         },
         selectedIndex: currentPage,
       ),
@@ -81,7 +83,7 @@ class MyApp extends StatelessWidget {
         // "hot reload" (press "r" in the console where you ran "flutter run",
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
+        // is not restarted. hi
         primarySwatch: Colors.amber,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),

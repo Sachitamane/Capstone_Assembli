@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// This is our courses page
+
 class LearnFlutterPage extends StatefulWidget {
   const LearnFlutterPage({Key? key}) : super(key: key);
 
@@ -12,7 +14,7 @@ class _LearnFlutterPageState extends State<LearnFlutterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Learn Flutter'),
+        title: const Text('CS 3366'),
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () {
@@ -22,8 +24,7 @@ class _LearnFlutterPageState extends State<LearnFlutterPage> {
         ),
       ),
       body: Column(
-        children: [Image.asset('images/einstein/jpg')
-        ],
+        children: [Image.asset('images/einstein/jpg')],
       ),
     );
   }

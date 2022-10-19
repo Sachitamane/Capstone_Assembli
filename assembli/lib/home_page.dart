@@ -17,7 +17,7 @@ class Homepage extends StatelessWidget {
             ),
           );
         },
-        child: const Text('Learn Flutter'),
+        child: const Text('CS 3366'),
       ),
     );
   }
