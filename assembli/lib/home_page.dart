@@ -1,6 +1,6 @@
 import 'package:assembli/learn_flutter_page.dart';
 import 'package:flutter/material.dart';
-
+//deprecated via bri
 class Homepage extends StatelessWidget {
   const Homepage({Key? key}) : super(key: key);
 
