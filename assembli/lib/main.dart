@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'package:assembli/courses.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +12,7 @@ class Assembli extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.lightGreen),
       home: LoginDemo(),
     );
   }
@@ -27,7 +27,7 @@ class _LoginDemoState extends State<LoginDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightGreen,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text("Login Page"),
       ),
@@ -41,7 +41,7 @@ class _LoginDemoState extends State<LoginDemo> {
                     width: 200,
                     height: 150,
                     // Put our assembli logo
-                    child: Image.asset('asset/assembliLogo.png')),
+                    child: Image.asset('assets/Images/assembliLogo.png')),
               ),
             ),
             const Padding(
@@ -70,16 +70,17 @@ class _LoginDemoState extends State<LoginDemo> {
               height: 50,
               width: 250,
               decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
-              child: FlatButton(
+                  color: Colors.lightGreen,
+                  borderRadius: BorderRadius.circular(20)),
+              child: TextButton(
                 onPressed: () {
                   // Press log in, needs to redirect to courses.dart
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => HomePage()));
+                  //Navigator.push(
+                  //context, MaterialPageRoute(builder: (_) => HomePage()));
                 },
                 child: const Text(
                   'Login',
-                  style: TextStyle(color: Colors.lightGreen, fontSize: 25),
+                  style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
               ),
             ),
