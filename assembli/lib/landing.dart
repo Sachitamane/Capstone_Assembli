@@ -15,7 +15,7 @@ class Landing extends StatefulWidget {
 class _LandingState extends State<Landing> {
   //im a little fuzzy on how this var is set, but current page is used in 
   //setting the index value in selectedIndex: (see line 41 and line 47) aka setState()
-  int currentPage = 0;
+  int currentPage = 1;
 
   //list is used for the bottom navigation bar 
   List pages = const [
