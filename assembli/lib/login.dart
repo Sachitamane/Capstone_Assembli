@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:assembli/landing.dart';
 
+//this file creates the login state/appearance
+
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
   @override
@@ -60,6 +62,12 @@ class _LoginState extends State<Login> {
                   backgroundColor: MaterialStatePropertyAll<Color>(Color.fromARGB(255, 179, 194, 168))
                 ),
                 onPressed: () {
+                  
+                  //
+                  //pushAndRemoveUntil basically opens up the landing page 
+                  //and removes access to the login page until some time 
+                  //
+
                   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context){
                     return const Landing();
                   },), (route) => false,);
@@ -73,7 +81,7 @@ class _LoginState extends State<Login> {
             const SizedBox( 
               height: 85,
             ),
-            const Text('New User? Create Account')
+            const Text('Having trouble logging in? Contact your Admin for help')
           ],
         ),
       ),

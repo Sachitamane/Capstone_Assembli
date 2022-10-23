@@ -3,6 +3,8 @@ import 'package:assembli/courses_page.dart';
 import 'package:assembli/profile_page.dart';
 import 'package:flutter/material.dart';
 
+//this file is the basis for how our application looks, once logged in
+
 class Landing extends StatefulWidget {
   const Landing({super.key});
 
@@ -11,7 +13,11 @@ class Landing extends StatefulWidget {
 }
 
 class _LandingState extends State<Landing> {
-  int currentPage = 0;
+  //im a little fuzzy on how this var is set, but current page is used in 
+  //setting the index value in selectedIndex: (see line 41 and line 47) aka setState()
+  int currentPage = 1;
+
+  //list is used for the bottom navigation bar 
   List pages = const [
     AnnouncementsPage(),  
     CoursesPage(),  

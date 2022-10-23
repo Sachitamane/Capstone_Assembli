@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:assembli/login.dart';
 
+//class holds basis for profile destination; 
+//will work similar to landing, linking other pages/states 
+//(linked from navigationBar destination in landing.dart) 
+
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
