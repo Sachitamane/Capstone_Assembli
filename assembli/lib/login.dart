@@ -16,7 +16,7 @@ class _LoginState extends State<Login> {
   String textFromFile = "Empty";
   String email = "";
   String userType = "";
-  String rNum = "";
+  String rNum = " ";
   String pass = "";
 
   getData() async {
@@ -109,20 +109,25 @@ class _LoginState extends State<Login> {
 
                   bool passed = checkLogin();
                   print(passed);
+                  if (passed) {
+                    if (userType == "Student") {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return Landing(
+                              passedrNum: rNum,
+                            );
+                          },
+                        ),
+                        (route) => false,
+                      );
+                    } else {}
+                  }
                   //
                   //pushAndRemoveUntil basically opens up the landing page
                   //and removes access to the login page until some time
                   //
-
-                  // Navigator.pushAndRemoveUntil(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (BuildContext context) {
-                  //       return const Landing();
-                  //     },
-                  //   ),
-                  //   (route) => false,
-                  // );
                 },
                 child: const Text(
                   'Login',
