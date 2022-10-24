@@ -1,68 +1,84 @@
-import 'package:assembli/student_announcements_page.dart';
-import 'package:assembli/student_courses_page.dart';
-import 'package:assembli/student_profile_page.dart';
+import 'package:assembli/announcements_page.dart';
+import 'package:assembli/courses_page.dart';
+import 'package:assembli/profile_page.dart';
 import 'package:flutter/material.dart';
 
 //this file is the basis for how our application looks, once logged in
 
-class StudentLanding extends StatefulWidget {
-  const StudentLanding({super.key});
+class Landing extends StatefulWidget {
+  const Landing({super.key});
 
   @override
-  State<StudentLanding> createState() => _StudentLandingState();
+  State<Landing> createState() => _LandingState();
 }
 
-class _StudentLandingState extends State<StudentLanding> {
-  //im a little fuzzy on how this var is set, but current page is used in
+class _LandingState extends State<Landing> {
+  //im a little fuzzy on how this var is set, but current page is used in 
   //setting the index value in selectedIndex: (see line 41 and line 47) aka setState()
   int currentPage = 1;
 
-  //list is used for the bottom navigation bar
-  List pages = const [
-    StudentAnnouncementsPage(),
-    StudentCoursesPage(),
-    StudentProfilePage()
+  //list is used for the bottom navigation bar 
+  //List pages = const [
+  final pages = [  
+    const AnnouncementsPage(),  
+    const CoursesPage(),  
+    const ProfilePage()
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+  return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 179, 194, 168),
         title: const Text('Assembli'),
       ),
-      body: pages[currentPage],
-      bottomNavigationBar: NavigationBarTheme(
+      
+      //changed to keep state or memory of what has changed on one page vs another
+      //changes here also expanded to changing the pages list into an array
+      // see line 21-22
+      //ref vid: https://www.youtube.com/watch?v=xoKqQjSDZ60
+
+
+      //body: pages[currentPage],
+      body: IndexedStack(
+        index: currentPage,
+        children: pages,
+      ),
+      bottomNavigationBar: NavigationBarTheme( 
         data: const NavigationBarThemeData(
           indicatorColor: Color.fromARGB(255, 133, 151, 118),
         ),
         child: NavigationBar(
+          
           height: 70,
           selectedIndex: currentPage,
-          backgroundColor: const Color.fromARGB(255, 179, 194, 168),
+          backgroundColor:  const Color.fromARGB(255, 179, 194, 168),
           labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+          
           onDestinationSelected: (int index) {
             setState(() {
               currentPage = index;
             });
             debugPrint("dest select");
           },
+
           destinations: const [
             NavigationDestination(
-                selectedIcon: Icon(Icons.article),
-                icon: Icon(Icons.article_outlined),
-                label: 'Announcements'),
+              selectedIcon: Icon(Icons.article),
+              icon: Icon(Icons.article_outlined),
+              label: 'Announcements'),
             NavigationDestination(
-                selectedIcon: Icon(Icons.fact_check),
-                icon: Icon(Icons.fact_check_outlined),
-                label: 'Courses'),
+              selectedIcon: Icon(Icons.fact_check),
+              icon: Icon(Icons.fact_check_outlined),
+              label: 'Courses'),
             NavigationDestination(
-                selectedIcon: Icon(Icons.person),
-                icon: Icon(Icons.person_outlined),
-                label: 'Profile')
+              selectedIcon: Icon(Icons.person),
+              icon: Icon(Icons.person_outlined),
+              label: 'Profile')
           ],
         ),
       ),
     );
   }
+  
 }
