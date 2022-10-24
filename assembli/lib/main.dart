@@ -10,87 +10,11 @@ void main() {
 class Assembli extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.lightGreen),
-      home: LoginDemo(),
-    );
-  }
-}
+    return const MaterialApp(
+      debugShowCheckedModeBanner: true,
 
-class LoginDemo extends StatefulWidget {
-  @override
-  _LoginDemoState createState() => _LoginDemoState();
-}
-
-class _LoginDemoState extends State<LoginDemo> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text("Login Page"),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 60.0),
-              child: Center(
-                child: Container(
-                    width: 200,
-                    height: 150,
-                    // Put our assembli logo
-                    child: Image.asset('assets/Images/assembliLogo.png')),
-              ),
-            ),
-            const Padding(
-              //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom:0),
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Email',
-                    hintText: 'Enter valid ttu email id'),
-              ),
-            ),
-            const Padding(
-              padding:
-                  EdgeInsets.only(left: 15.0, right: 15.0, top: 15, bottom: 0),
-              //padding: EdgeInsets.symmetric(horizontal: 15),
-              child: TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Password',
-                    hintText: 'Enter secure password'),
-              ),
-            ),
-            Container(
-              height: 50,
-              width: 250,
-              decoration: BoxDecoration(
-                  color: Colors.lightGreen,
-                  borderRadius: BorderRadius.circular(20)),
-              child: TextButton(
-                onPressed: () {
-                  // Press log in, needs to redirect to courses.dart
-                  //Navigator.push(
-                  //context, MaterialPageRoute(builder: (_) => HomePage()));
-                },
-                child: const Text(
-                  'Login',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 130,
-            ),
-            const Text('New User? Create Account')
-          ],
-        ),
-      ),
+      //sets login page as homepage ( default i guess )
+      home: Login(),
     );
   }
 }
