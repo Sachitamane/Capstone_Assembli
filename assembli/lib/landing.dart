@@ -18,10 +18,11 @@ class _LandingState extends State<Landing> {
   int currentPage = 1;
 
   //list is used for the bottom navigation bar 
-  List pages = const [
-    AnnouncementsPage(),  
-    CoursesPage(),  
-    ProfilePage()
+  //List pages = const [
+  final pages = [  
+    const AnnouncementsPage(),  
+    const CoursesPage(),  
+    const ProfilePage()
   ];
 
   @override
@@ -31,12 +32,24 @@ class _LandingState extends State<Landing> {
         backgroundColor: const Color.fromARGB(255, 179, 194, 168),
         title: const Text('Assembli'),
       ),
-      body: pages[currentPage],
+      
+      //changed to keep state or memory of what has changed on one page vs another
+      //changes here also expanded to changing the pages list into an array
+      // see line 21-22
+      //ref vid: https://www.youtube.com/watch?v=xoKqQjSDZ60
+
+
+      //body: pages[currentPage],
+      body: IndexedStack(
+        index: currentPage,
+        children: pages,
+      ),
       bottomNavigationBar: NavigationBarTheme( 
         data: const NavigationBarThemeData(
           indicatorColor: Color.fromARGB(255, 133, 151, 118),
         ),
         child: NavigationBar(
+          
           height: 70,
           selectedIndex: currentPage,
           backgroundColor:  const Color.fromARGB(255, 179, 194, 168),
