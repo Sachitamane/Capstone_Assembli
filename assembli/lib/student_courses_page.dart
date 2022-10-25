@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:assembli/student_course_home.dart';
 
 //class holds basis for courses destination;
 //will work similar to landing, linking other pages/states
@@ -35,8 +36,20 @@ class ListViewBuilder extends StatelessWidget {
           itemCount: 5,
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
-                leading: const Icon(Icons.account_circle),
-                title: Text("CS - 4366 Senior Capstone Project"));
+              leading: const Icon(Icons.account_circle),
+              title: Text("CS - 4366 Senior Capstone Project"),
+              onTap: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return const StudentCourseHome();
+                    },
+                  ),
+                  (route) => false,
+                );
+              },
+            );
           }),
     );
   }
