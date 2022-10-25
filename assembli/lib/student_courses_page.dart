@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:assembli/student_course_home.dart';
-//turning this into a stateful widget, plus changing pushAndRemoveUntil into push only
+//changing pushAndRemoveUntil into push only
 
-
-/////////////////
-/*
 class StudentCoursesPage extends StatelessWidget {
   const StudentCoursesPage({Key? key}) : super(key: key);
 
@@ -18,43 +15,33 @@ class StudentCoursesPage extends StatelessWidget {
         home: const ListViewBuilder());
   }
 }
-*/
-class StudentCoursesPage extends StatefulWidget {
-  const StudentCoursesPage({super.key});
 
-  @override
-  State<StudentCoursesPage> createState() => ListViewBuilder();
-}
-/*
-class _StudentCoursesPageState extends State<StudentCoursesPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-*/
-class ListViewBuilder extends State<StudentCoursesPage>{
+class ListViewBuilder extends StatelessWidget{
+  const ListViewBuilder({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-          itemCount: 5,
+          itemCount: 20,
           itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-              leading: const Icon(Icons.account_circle),
-              title: const Text("CS - 4366 Senior Capstone Project"),
-              onTap: () {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return const StudentCourseHome();
-                    },
-                  ),
-                  (route) => false,
-                );
-              },
+            return SingleChildScrollView(
+              child: ListTile(
+                leading: const Icon(Icons.account_circle),
+                title: const Text("CS - 4366 Senior Capstone Project"),
+                onTap: () {
+                  // Navigator.pushAndRemoveUntil(
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return const StudentCourseHome();
+                      },
+                    ),
+                    //(route) => false,
+                  );
+                },
+              ),
             );
           }),
     );
