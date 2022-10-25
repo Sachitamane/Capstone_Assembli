@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
-//class holds basis for profile destination;
-//will work similar to landing, linking other pages/states
-//(linked from navigationBar destination in landing.dart)
+class StudentCourseHome extends StatefulWidget {
+  const StudentCourseHome({super.key});
 
-/*class StudentProfilePage extends StatelessWidget {
-  const StudentProfilePage({Key? key}) : super(key: key);
+  @override
+  State<StudentCourseHome> createState() => _StudentCourseHomeState();
+}
 
-  // Log out button, redirects to login.dart
+class _StudentCourseHomeState extends State<StudentCourseHome> {
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -15,21 +16,15 @@ import 'package:flutter/material.dart';
       style: const ButtonStyle(
           backgroundColor: MaterialStatePropertyAll<Color>(
               Color.fromARGB(255, 179, 194, 168))),
-      onPressed: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (BuildContext context) {
-              return const Login();
-            },
-          ),
-        );
-      },
-      child: const Text('Log Out',
+      onPressed: () {},
+      child: const Text('Log my Attendance',
           style: TextStyle(color: Colors.white, fontSize: 25)),
     ));
   }
-}*/
+}
 
+//ref to change (moved from stateless to stateful)//////////////////////////////////
+/*
 class StudentCourseHome extends StatelessWidget {
   const StudentCourseHome({Key? key}) : super(key: key);
 
@@ -47,3 +42,4 @@ class StudentCourseHome extends StatelessWidget {
     ));
   }
 }
+*/

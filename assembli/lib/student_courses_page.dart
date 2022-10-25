@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:assembli/student_course_home.dart';
+//turning this into a stateful widget, plus changing pushAndRemoveUntil into push only
 
-//class holds basis for courses destination;
-//will work similar to landing, linking other pages/states
-//(linked from navigationBar destination in landing.dart)
 
+/////////////////
+/*
 class StudentCoursesPage extends StatelessWidget {
   const StudentCoursesPage({Key? key}) : super(key: key);
-
-  //@override
-  //Widget build(BuildContext context) {
-  //return const Center(
-  //  child: Text("Courses Page"),
-  //);
-  //}
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +18,22 @@ class StudentCoursesPage extends StatelessWidget {
         home: const ListViewBuilder());
   }
 }
+*/
+class StudentCoursesPage extends StatefulWidget {
+  const StudentCoursesPage({super.key});
 
-class ListViewBuilder extends StatelessWidget {
-  const ListViewBuilder({Key? key}) : super(key: key);
+  @override
+  State<StudentCoursesPage> createState() => ListViewBuilder();
+}
+/*
+class _StudentCoursesPageState extends State<StudentCoursesPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+*/
+class ListViewBuilder extends State<StudentCoursesPage>{
 
   @override
   Widget build(BuildContext context) {
