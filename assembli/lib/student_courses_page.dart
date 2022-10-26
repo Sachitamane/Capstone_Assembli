@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:assembli/student_course_home.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+
 //changing pushAndRemoveUntil into push only
+//change to stateful, 
 
 class StudentCoursesPage extends StatelessWidget {
   const StudentCoursesPage({Key? key}) : super(key: key);
@@ -43,7 +47,35 @@ class ListViewBuilder extends StatelessWidget{
                 },
               ),
             );
-          }),
+          }
+          ),
     );
+
+    
   }
 }
+/////////////////////////////////////////////////////////////////////////////////////////////
+class Course{
+  final int rnum;         //teacher rnum
+  final int cid;          //courseid number "4366, 3354, ..."
+  final int sect;         //section for course
+  final String cname;     //course name/identifier
+  final int crn;          //crn
+
+  Course({
+    required this.cid,
+    this.cname = '',
+    required this.crn,
+    required this.rnum,
+    required this.sect,
+  });
+
+  Map<String, dynamic> toJson() => {
+    'cid': cid,
+    'cname': cname,
+    'crn': crn,
+    'rnum': rnum,
+    'sect': sect,
+  };
+}
+
