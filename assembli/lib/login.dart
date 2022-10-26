@@ -1,11 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:assembli/student_landing.dart';
 import 'package:assembli/instructor_landing.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
+import 'package:assembli/user.dart';
 
 //this file creates the login state/appearance
 
@@ -16,7 +19,9 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  String textFromFile = "";
+  String textFromCredentialsFile = "";
+  String textFromRosterFile = "";
+  String textFromCoursesFile = "";
   String tmpText = "";
   String emailIn = "";
   String passIn = "";
@@ -25,8 +30,7 @@ class _LoginState extends State<Login> {
   // Create controller to retrive the user input
   bool checkLogin() {
     bool access = false;
-    var text = textFromFile.replaceAll("\n", ",");
-    //print(text);
+    var text = textFromCredentialsFile.replaceAll("\n", ",");
     var line = text.split(",");
 
     for (int i = 0; i < line.length; i++) {
@@ -34,7 +38,10 @@ class _LoginState extends State<Login> {
         if (line[i + 1] == (passIn)) {
           access = true;
           rNum = line[i + 3];
+          User.rNum = rNum;
           userType = line[i + 2];
+          User.userType = userType;
+          User.email = emailIn;
         }
       }
     }
@@ -49,10 +56,57 @@ class _LoginState extends State<Login> {
   final myController = TextEditingController();
   final passController = TextEditingController();
 
-  void getData() async {
-    textFromFile = await _read();
-    if (textFromFile == "") {
-      textFromFile = await _read();
+  void getData(String fileName) async {
+    if (fileName == "credentials.txt") {
+      textFromCredentialsFile = await _read(fileName);
+      if (textFromCredentialsFile == "") {
+        textFromCredentialsFile = await _read(fileName);
+      }
+    } else if (fileName == "roster.txt") {
+      textFromRosterFile = await _read(fileName);
+      if (textFromRosterFile == "") {
+        textFromRosterFile = await _read(fileName);
+      }
+    } else if (fileName == "courses.txt") {
+      textFromCoursesFile = await _read(fileName);
+      if (textFromCoursesFile == "") {
+        textFromCoursesFile = await _read(fileName);
+      }
+    }
+  }
+
+  void setCourseData() {
+    var text = textFromCoursesFile.replaceAll("\n", ",");
+    var line = text.split(",");
+    var text1 = textFromRosterFile.replaceAll("\n", ",Next,");
+    var line1 = text1.split(",");
+    List<String> courses = [];
+    rNum = rNum.substring(0, rNum.length - 1);
+    bool flag = true;
+    int j = 3;
+    for (int i = 0; i < line1.length; i++) {
+      //print('${line1[i]}  $rNum');
+      if (line1[i].compareTo(rNum) == 0) {
+        while ((i + j < line1.length && flag)) {
+          if (line1[i + j] != "Next") {
+            Courses.courses.add(line1[i + j]);
+            courses.add(line1[i + j]);
+            j++;
+          } else {
+            flag = false;
+          }
+        }
+      }
+    }
+    List<String> courseInfo = [];
+    for (int k = 0; k < line.length; k++) {
+      for (int l = 0; l < courses.length; l++) {
+        if (line[k] == courses[l].substring(0, courses[l].length - 1)) {
+          courseInfo.add('${line[k - 2]}-${line[k - 1]} ${line[k - 3]}');
+          Courses.courseInfo
+              .add('${line[k - 2]}-${line[k - 1]} ${line[k - 3]}');
+        }
+      }
     }
   }
 
@@ -63,24 +117,24 @@ class _LoginState extends State<Login> {
     super.dispose();
   }
 
-  _write() async {
+  _write(String fileName) async {
     final Directory directory = await getApplicationDocumentsDirectory();
-    tmpText = await getFileData("text/credentials.txt");
-    final File file = File('${directory.path}/Credentials.txt');
+    tmpText = await getFileData("text/$fileName");
+    final File file = File('${directory.path}/$fileName');
     await file.writeAsString(tmpText, flush: true);
   }
 
-  Future<String> _read() async {
+  Future<String> _read(String fileName) async {
     String text = "";
     try {
       final Directory directory = await getApplicationDocumentsDirectory();
-      final File file = File('${directory.path}/Credentials.txt');
+      final File file = File('${directory.path}/$fileName');
       text = await file.readAsString();
     } catch (e) {
       print("Couldn't read file");
     }
     if (text == "") {
-      _write();
+      _write(fileName);
     }
     //print(text);
     return text;
@@ -88,9 +142,9 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    //getDir();
-    //_write("Newest Email\n");
-    getData();
+    getData("credentials.txt");
+    getData("roster.txt");
+    getData("courses.txt");
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -146,22 +200,26 @@ class _LoginState extends State<Login> {
                         Color.fromARGB(255, 179, 194, 168))),
                 onPressed: () {
                   // Student Landing
-                  //print(textFromFile);
+
                   emailIn = myController.text;
                   passIn = passController.text;
                   bool access = checkLogin();
 
                   if (access) {
+                    setCourseData();
+
                     if (userType == "Student") {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return const StudentLanding();
-                          },
-                        ),
-                        (route) => false,
-                      );
+                      Timer(Duration(seconds: 10), () {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return StudentLanding();
+                            },
+                          ),
+                          (route) => false,
+                        );
+                      });
                     } else {
                       Navigator.pushAndRemoveUntil(
                         context,
