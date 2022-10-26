@@ -1,3 +1,4 @@
+import 'package:assembli/location.dart';
 import 'package:flutter/material.dart';
 
 class StudentCourseHome extends StatelessWidget {
@@ -11,7 +12,17 @@ class StudentCourseHome extends StatelessWidget {
       style: const ButtonStyle(
           backgroundColor: MaterialStatePropertyAll<Color>(
               Color.fromARGB(255, 179, 194, 168))),
-      onPressed: () {},
+      onPressed: () {
+          Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return const LocationFinder();
+                        },
+                      ),
+                      (route) => false,
+                    );
+      },
       child: const Text('Log my Attendance',
           style: TextStyle(color: Colors.white, fontSize: 25)),
     ));
