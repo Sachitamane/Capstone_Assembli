@@ -27,7 +27,7 @@ class _LoginState extends State<Login> {
   String passIn = "";
   String rNum = "";
   String userType = "";
-  // Create controller to retrive the user input
+
   bool checkLogin() {
     bool access = false;
     var text = textFromCredentialsFile.replaceAll("\n", ",");
@@ -76,35 +76,45 @@ class _LoginState extends State<Login> {
   }
 
   void setCourseData() {
-    var text = textFromCoursesFile.replaceAll("\n", ",");
+    var text = textFromCoursesFile.replaceAll("\n", ",Next");
     var line = text.split(",");
     var text1 = textFromRosterFile.replaceAll("\n", ",Next,");
     var line1 = text1.split(",");
     List<String> courses = [];
+    Courses.courseInfo = [];
+    Courses.courses = [];
+
     rNum = rNum.substring(0, rNum.length - 1);
-    bool flag = true;
-    int j = 3;
-    for (int i = 0; i < line1.length; i++) {
-      //print('${line1[i]}  $rNum');
-      if (line1[i].compareTo(rNum) == 0) {
-        while ((i + j < line1.length && flag)) {
-          if (line1[i + j] != "Next") {
-            Courses.courses.add(line1[i + j]);
-            courses.add(line1[i + j]);
-            j++;
-          } else {
-            flag = false;
+    if (userType == "Student") {
+      bool flag = true;
+      int j = 3;
+      for (int i = 0; i < line1.length; i++) {
+        if (line1[i].compareTo(rNum) == 0) {
+          while ((i + j < line1.length && flag)) {
+            if (line1[i + j] != "Next") {
+              Courses.courses.add(line1[i + j]);
+              courses.add(line1[i + j]);
+              j++;
+            } else {
+              flag = false;
+            }
           }
         }
       }
-    }
-    List<String> courseInfo = [];
-    for (int k = 0; k < line.length; k++) {
-      for (int l = 0; l < courses.length; l++) {
-        if (line[k] == courses[l].substring(0, courses[l].length - 1)) {
-          courseInfo.add('${line[k - 2]}-${line[k - 1]} ${line[k - 3]}');
+      for (int k = 0; k < line.length; k++) {
+        for (int l = 0; l < courses.length; l++) {
+          if (line[k] == courses[l].substring(0, courses[l].length - 1)) {
+            Courses.courseInfo
+                .add('${line[k - 2]}-${line[k - 1]} ${line[k - 3]}');
+          }
+        }
+      }
+    } else {
+      for (int i = 0; i < line.length; i++) {
+        if (line[i] == rNum) {
+          Courses.courses.add(line[i - 2]);
           Courses.courseInfo
-              .add('${line[k - 2]}-${line[k - 1]} ${line[k - 3]}');
+              .add('${line[i - 4]}-${line[i - 3]} ${line[i - 5]}');
         }
       }
     }
@@ -136,7 +146,6 @@ class _LoginState extends State<Login> {
     if (text == "") {
       _write(fileName);
     }
-    //print(text);
     return text;
   }
 
@@ -199,17 +208,13 @@ class _LoginState extends State<Login> {
                     backgroundColor: MaterialStatePropertyAll<Color>(
                         Color.fromARGB(255, 179, 194, 168))),
                 onPressed: () {
-                  // Student Landing
-
                   emailIn = myController.text;
                   passIn = passController.text;
                   bool access = checkLogin();
-
                   if (access) {
                     setCourseData();
-
                     if (userType == "Student") {
-                      Timer(Duration(seconds: 10), () {
+                      Timer(Duration(seconds: 5), () {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
@@ -221,15 +226,17 @@ class _LoginState extends State<Login> {
                         );
                       });
                     } else {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return const InstructorLanding();
-                          },
-                        ),
-                        (route) => false,
-                      );
+                      Timer(Duration(seconds: 5), () {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return InstructorLanding();
+                            },
+                          ),
+                          (route) => false,
+                        );
+                      });
                     }
                   }
                   // User is neither student or instructor
