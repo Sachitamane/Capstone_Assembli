@@ -17,13 +17,15 @@ class StudentProfilePage extends StatelessWidget {
           backgroundColor: MaterialStatePropertyAll<Color>(
               Color.fromARGB(255, 179, 194, 168))),
       onPressed: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (BuildContext context) {
-              return const Login();
-            },
-          ),
-        );
+          Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return const Login();
+                        },
+                      ),
+                      (route) => false,
+                    );
       },
       child: const Text('Log Out',
           style: TextStyle(color: Colors.white, fontSize: 25)),
