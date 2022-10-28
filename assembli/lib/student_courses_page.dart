@@ -37,62 +37,45 @@ class _StudentCoursesPageState extends State<StudentCoursesPage> {
                 borderSide: const BorderSide(color: Color.fromARGB(255, 179, 194, 168))
             ),
           ),
-          //onChanged: //create search method here 
+          /////////////////////START HERE LATER
+         // onChanged: searchCourse, 
         ),
       ),
 
       //may work with better connection or different wifi, try again later
-      StreamBuilder(
-        stream: courseCollection.snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot){
-          if(streamSnapshot.hasData){
-            return ListView.builder(
-              itemCount: streamSnapshot.data!.docs.length,
-              itemBuilder: (context, index){
-                final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
-                return Card(
-                  margin: const EdgeInsets.all(16),
-                  child: ListTile(
-                    title: Text(documentSnapshot['cname']),
-                    subtitle: const Text('dubbb'),
-                  ),
-                  );
-              },
-            );
-          }
-          return const Center(child: CircularProgressIndicator(),);
-        }
-      )
-      //Expanded(
-        //child: 
-    /*    StreamBuilder<List<Course>>(
-          stream: readCourses(),
-          builder: (context, snapshot){
-            if (snapshot.hasError) {
-              return const Text('Error here');
+      //ref video for CRUD (Read) db operations https://www.youtube.com/watch?v=n1PM9XcYD5s&list=PL4tcFRTiQTj2BeFQ0e97C0ZQAi8l-HOM4&index=4
+      Expanded(
+        child: StreamBuilder(
+          stream: courseCollection.snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot){
+            if(streamSnapshot.hasData){
+              return ListView.builder(
+                itemCount: streamSnapshot.data!.docs.length,
+                itemBuilder: (context, index){
+                  final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
+                  return Card(
+                    margin: const EdgeInsets.all(16),
+                    child: ListTile(
+                      title: Text(documentSnapshot['cname']),
+                      subtitle: const Text('dubbb'),
+                    ),
+                    );
+                },
+              );
             }
-            else if(snapshot.hasData) {
-                  final courses = snapshot.data!;
-            
-                  return ListView(
-                  children: courses.map(buildUser).toList(),
-                  );
-            } else{
-              return const Center(child: CircularProgressIndicator());
-            }
+            return const Center(child: CircularProgressIndicator(),);
           }
-
-         /* child: ListView.builder(
-            itemCount: 
-            itemBuilder: (context) 
-            ),*/
         ),
-     */  // )
+      )
       ]
     ),
   );
+  //ref video https://www.youtube.com/watch?v=ZHdg2kfKmjI&list=PL4tcFRTiQTj2BeFQ0e97C0ZQAi8l-HOM4&index=9&t=1s
+ /* void searchCourse(String query){
+    final suggestions = 
+  }*/
 ////////////////////////////////////WHAT'S TO BE DISPLAYED IN LISTVIEW
-  Widget buildUser(Course course) => ListTile(
+  /*Widget buildUser(Course course) => ListTile(
     leading: CircleAvatar(child: Text(/*'${course.cname}'*/ course.cname)),
   );
 
@@ -101,7 +84,8 @@ class _StudentCoursesPageState extends State<StudentCoursesPage> {
       .collection('Course')
       .snapshots()  /*gets all documents from firebase collection*/
       .map((snapshot) =>
-          snapshot.docs.map((doc) => Course.fromJson(doc.data())).toList());
+          snapshot.docs.map((doc) => Course.fromJson(doc.data())).toList()
+      );*/
 }
 
 /*
