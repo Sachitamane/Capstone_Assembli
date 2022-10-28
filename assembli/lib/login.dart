@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:assembli/student_landing.dart';
 import 'package:assembli/instructor_landing.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter/services.dart';
 import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:assembli/user.dart';
 
 //this file creates the login state/appearance

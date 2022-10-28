@@ -7,4 +7,5 @@ class User {
 class Courses {
   static List<String> courses = [];
   static List<String> courseInfo = [];
+  static int selectedCourse = 0;
 }

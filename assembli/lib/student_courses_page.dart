@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:assembli/student_course_home.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:flutter/services.dart';
-import 'dart:io';
 import 'package:assembli/user.dart';
-import 'dart:async';
 
 //class holds basis for courses destination;
 //will work similar to landing, linking other pages/states
@@ -45,11 +41,13 @@ class ListViewBuilder extends StatelessWidget {
               leading: const Icon(Icons.account_circle),
               title: Text(courses[index]),
               onTap: () {
+                Courses.selectedCourse = index;
+
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
                     builder: (BuildContext context) {
-                      return const StudentCourseHome();
+                      return StudentCourseHome();
                     },
                   ),
                   (route) => false,

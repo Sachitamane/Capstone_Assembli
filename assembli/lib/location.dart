@@ -1,3 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -167,7 +171,7 @@ class _LocationFinderState extends State<LocationFinder> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (BuildContext context) {
-                                          return const StudentCourseHome();
+                                          return StudentCourseHome();
                                         },
                                       ),
                                       (route) => false,
@@ -177,16 +181,17 @@ class _LocationFinderState extends State<LocationFinder> {
                           : SimpleTimer(
                               status: TimerStatus.start,
                               duration: Duration(seconds: 10),
-                              onEnd: () => Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                    return const StudentCourseHome();
-                                  },
-                                ),
-                                (route) => false,
-                              ),
-                            ),
+                              onEnd: () => Timer(Duration(seconds: 5), () {
+                                    Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context) {
+                                          return StudentCourseHome();
+                                        },
+                                      ),
+                                      (route) => false,
+                                    );
+                                  })),
                 ),
               ),
             ],

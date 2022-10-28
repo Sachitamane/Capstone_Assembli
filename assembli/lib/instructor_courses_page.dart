@@ -30,11 +30,12 @@ class ListViewBuilder extends StatelessWidget {
               leading: const Icon(Icons.account_circle),
               title: Text(courses[index]),
               onTap: () {
+                Courses.selectedCourse = index;
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
                     builder: (BuildContext context) {
-                      return const InstructorCourseHome();
+                      return InstructorCourseHome();
                     },
                   ),
                   (route) => false,
