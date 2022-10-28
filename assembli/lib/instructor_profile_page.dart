@@ -17,12 +17,14 @@ class InstructorProfilePage extends StatelessWidget {
           backgroundColor: MaterialStatePropertyAll<Color>(
               Color.fromARGB(255, 179, 194, 168))),
       onPressed: () {
-        Navigator.of(context).push(
+        Navigator.pushAndRemoveUntil(
+          context,
           MaterialPageRoute(
             builder: (BuildContext context) {
-              return const Login();
+              return Login();
             },
           ),
+          (route) => false,
         );
       },
       child: const Text('Log Out',

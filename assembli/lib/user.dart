@@ -12,4 +12,6 @@ class Courses {
   static String code = "";
   static bool classOpen = false;
   static List<String> roster = [];
+  static String lat = "";
+  static String long = "";
 }

@@ -74,6 +74,8 @@ class StudentCourseHome extends StatelessWidget {
           if (line[i + 2] == "true") {
             Courses.classOpen = true;
             Courses.code = line[i + 3];
+            Courses.lat = line[i + 4];
+            Courses.long = line[i + 5];
           } else {
             Courses.classOpen = false;
           }
