@@ -41,8 +41,9 @@ class ListViewBuilder extends StatelessWidget {
               leading: const Icon(Icons.account_circle),
               title: Text(courses[index]),
               onTap: () {
+                Courses.classOpen = false;
                 Courses.selectedCourse = index;
-
+                Courses.present = false;
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(

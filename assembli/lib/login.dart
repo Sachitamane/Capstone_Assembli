@@ -214,7 +214,7 @@ class _LoginState extends State<Login> {
                   if (access) {
                     setCourseData();
                     if (userType == "Student") {
-                      Timer(Duration(seconds: 5), () {
+                      Timer(Duration(seconds: 1), () {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
@@ -226,7 +226,7 @@ class _LoginState extends State<Login> {
                         );
                       });
                     } else {
-                      Timer(Duration(seconds: 5), () {
+                      Timer(Duration(seconds: 1), () {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(

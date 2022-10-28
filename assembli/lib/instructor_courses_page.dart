@@ -19,6 +19,8 @@ class InstructorCoursesPage extends StatelessWidget {
 class ListViewBuilder extends StatelessWidget {
   ListViewBuilder({Key? key}) : super(key: key);
   List<String> courses = [];
+
+  void setRoster() {}
   @override
   Widget build(BuildContext context) {
     courses = Courses.courseInfo;
@@ -30,6 +32,7 @@ class ListViewBuilder extends StatelessWidget {
               leading: const Icon(Icons.account_circle),
               title: Text(courses[index]),
               onTap: () {
+                setRoster();
                 Courses.selectedCourse = index;
                 Navigator.pushAndRemoveUntil(
                   context,

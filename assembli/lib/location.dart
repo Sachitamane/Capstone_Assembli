@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:async';
-
+import 'package:assembli/user.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -19,6 +19,7 @@ class _LocationFinderState extends State<LocationFinder> {
   //for holding gps location of student
   var _latitude = "";
   var _longitude = "";
+  var code = "";
   //to hold difference between Intructor and Student Position
   var _difference = "";
   //to hold validness of student position
@@ -29,33 +30,39 @@ class _LocationFinderState extends State<LocationFinder> {
   double instructorLatitude = 33.5855774;
   double instructorLongitude = -101.8737846;
 
+  final myController = TextEditingController();
   //used to compare Instructors position and Students Position and check Students position validness
   //updates _valid and _cancheck boolean variables
   Future<void> _checkPosition() async {
     Position posStudent = await _determinePosition();
-    setState(() {
-      _difference = Geolocator.distanceBetween(posStudent.latitude,
-              posStudent.longitude, instructorLatitude, instructorLongitude)
-          .toString();
-      //place to mess with proximity interval to make location valid closer to hard coded professors or farther away
-      if ((double.parse(_difference) >= 0) &&
-          (double.parse(_difference) <= 75)) {
-        _valid = true;
-      } else {
-        _valid = false;
-      }
-      _cancheck = true;
-    });
+    if (_cancheck) {
+    } else {
+      setState(() {
+        _difference = Geolocator.distanceBetween(posStudent.latitude,
+                posStudent.longitude, instructorLatitude, instructorLongitude)
+            .toString();
+        //place to mess with proximity interval to make location valid closer to hard coded professors or farther away
+        if ((double.parse(_difference) >= 0) &&
+            (double.parse(_difference) <= 75)) {
+          _valid = true;
+        } else {
+          _valid = false;
+        }
+        _cancheck = true;
+      });
+    }
   }
 
   //used to update the _latitude and _longitude; Student GPS Location
   Future<void> _updatePosition() async {
     Position pos = await _determinePosition();
     List pm = await placemarkFromCoordinates(pos.latitude, pos.longitude);
-    setState(() {
-      _latitude = pos.latitude.toString();
-      _longitude = pos.longitude.toString();
-    });
+    _latitude = pos.latitude.toString();
+    _longitude = pos.longitude.toString();
+    // setState(() {
+    //   _latitude = pos.latitude.toString();
+    //   _longitude = pos.longitude.toString();
+    // });
   }
 
   /// Determine the current position of the device.
@@ -104,6 +111,7 @@ class _LocationFinderState extends State<LocationFinder> {
   Widget build(BuildContext context) {
     _updatePosition();
     _checkPosition();
+    code = Courses.code;
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
@@ -160,6 +168,7 @@ class _LocationFinderState extends State<LocationFinder> {
                       : _valid
                           ? Column(children: <Widget>[
                               TextField(
+                                controller: myController,
                                 decoration: InputDecoration(
                                     border: OutlineInputBorder(),
                                     hintText: 'Enter Code'),
@@ -167,21 +176,37 @@ class _LocationFinderState extends State<LocationFinder> {
                               ElevatedButton(
                                   child: Text('Submit Code'),
                                   onPressed: () {
-                                    Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (BuildContext context) {
-                                          return StudentCourseHome();
-                                        },
-                                      ),
-                                      (route) => false,
-                                    );
+                                    print('$myController.text');
+                                    if (myController.text == code) {
+                                      Courses.present = true;
+                                      Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (BuildContext context) {
+                                            return StudentCourseHome();
+                                          },
+                                        ),
+                                        (route) => false,
+                                      );
+                                    } else {
+                                      Courses.present = false;
+                                      Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (BuildContext context) {
+                                            return StudentCourseHome();
+                                          },
+                                        ),
+                                        (route) => false,
+                                      );
+                                    }
                                   }),
                             ])
                           : SimpleTimer(
                               status: TimerStatus.start,
                               duration: Duration(seconds: 10),
-                              onEnd: () => Timer(Duration(seconds: 5), () {
+                              onEnd: () => Timer(Duration(seconds: 1), () {
+                                    Courses.present = false;
                                     Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(

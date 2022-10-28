@@ -29,7 +29,6 @@ class _InstructorCourseState extends State<InstructorCourseHome> {
       String formatter = DateFormat('yMd').format(now);
       tmpText =
           '$formatter,${Courses.courses[Courses.selectedCourse]},true,$classCode';
-      print(tmpText);
       _write("openattendance.txt");
       setState(() {
         classOpen = true;
