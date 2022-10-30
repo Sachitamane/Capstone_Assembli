@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:assembli/student_landing.dart';
-import 'package:assembli/instructor_landing.dart';
+import 'package:assembli/studentUI/student_landing.dart';
+import 'package:assembli/instructorUI/instructor_landing.dart';
 
 //this file creates the login state/appearance
 

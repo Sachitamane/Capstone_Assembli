@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:assembli/instructor_course_home.dart';
+import 'package:assembli/instructorUI/instructor_course_home.dart';
 
 class InstructorCoursesPage extends StatelessWidget {
   const InstructorCoursesPage({Key? key}) : super(key: key);

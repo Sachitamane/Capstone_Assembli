@@ -1,27 +1,30 @@
-import 'package:assembli/instructor_requests_page.dart';
-import 'package:assembli/instructor_courses_page.dart';
-import 'package:assembli/instructor_profile_page.dart';
+import 'package:assembli/studentUI/student_announcements_page.dart';
+import 'package:assembli/studentUI/student_courses_page.dart';
+import 'package:assembli/studentUI/student_profile_page.dart';
 import 'package:flutter/material.dart';
 
 //this file is the basis for how our application looks, once logged in
 
-class InstructorLanding extends StatefulWidget {
-  const InstructorLanding({super.key});
+class StudentLanding extends StatefulWidget {
+  const StudentLanding({super.key});
 
   @override
-  State<InstructorLanding> createState() => _InstructorLandingState();
+  State<StudentLanding> createState() => _StudentLandingState();
 }
 
-class _InstructorLandingState extends State<InstructorLanding> {
-  //im a little fuzzy on how this var is set, but current page is used in
-  //setting the index value in selectedIndex: (see line 41 and line 47) aka setState()
+class _StudentLandingState extends State<StudentLanding> {
   int currentPage = 1;
 
-  //list is used for the bottom navigation bar
-  List pages = const [
-    InstructorRequestsPage(),
-    InstructorCoursesPage(),
-    InstructorProfilePage()
+  
+  //changed from List type to final to enable remembering the state
+  //ref vids :
+  //  https://www.youtube.com/watch?v=pNfJdt03-Dk
+  //  https://www.youtube.com/watch?v=xoKqQjSDZ60
+  //List pages = const [
+  final/*List<Widget>*/ pages = [
+    const StudentAnnouncementsPage(),
+    const StudentCoursesPage(),
+    const StudentProfilePage()
   ];
 
   @override
@@ -31,7 +34,12 @@ class _InstructorLandingState extends State<InstructorLanding> {
         backgroundColor: const Color.fromARGB(255, 179, 194, 168),
         title: const Text('Assembli'),
       ),
-      body: pages[currentPage],
+      //changed as a result of pages array of pages, keeps state of each page
+      //body: pages[currentPage],
+      body : IndexedStack(
+        index: currentPage,
+        children: pages,
+        ),
       bottomNavigationBar: NavigationBarTheme(
         data: const NavigationBarThemeData(
           indicatorColor: Color.fromARGB(255, 133, 151, 118),
@@ -45,13 +53,13 @@ class _InstructorLandingState extends State<InstructorLanding> {
             setState(() {
               currentPage = index;
             });
-            debugPrint("dest select");
+            debugPrint(pages[index].toString());
           },
           destinations: const [
             NavigationDestination(
                 selectedIcon: Icon(Icons.article),
                 icon: Icon(Icons.article_outlined),
-                label: 'Requests'),
+                label: 'Announcements'),
             NavigationDestination(
                 selectedIcon: Icon(Icons.fact_check),
                 icon: Icon(Icons.fact_check_outlined),
