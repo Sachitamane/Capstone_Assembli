@@ -26,7 +26,7 @@ class ListViewBuilder extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
               leading: const Icon(Icons.account_circle),
-              title: Text("CS - 4366 Senior Capstone Project"),
+              title: const Text("CS - 4366 Senior Capstone Project"),
               onTap: () {
                 Navigator.pushAndRemoveUntil(
                   context,

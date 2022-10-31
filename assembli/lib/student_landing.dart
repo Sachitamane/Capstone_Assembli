@@ -13,12 +13,11 @@ class StudentLanding extends StatefulWidget {
 }
 
 class _StudentLandingState extends State<StudentLanding> {
-  //im a little fuzzy on how this var is set, but current page is used in
-  //setting the index value in selectedIndex: (see line 41 and line 47) aka setState()
+
   int currentPage = 1;
 
   //list is used for the bottom navigation bar
-  List pages = const [
+  final pages = const [
     StudentAnnouncementsPage(),
     StudentCoursesPage(),
     StudentProfilePage()
@@ -31,7 +30,10 @@ class _StudentLandingState extends State<StudentLanding> {
         backgroundColor: const Color.fromARGB(255, 179, 194, 168),
         title: const Text('Assembli'),
       ),
-      body: pages[currentPage],
+      body : IndexedStack(
+        index: currentPage,
+        children: pages,
+        ),
       bottomNavigationBar: NavigationBarTheme(
         data: const NavigationBarThemeData(
           indicatorColor: Color.fromARGB(255, 133, 151, 118),
@@ -45,7 +47,7 @@ class _StudentLandingState extends State<StudentLanding> {
             setState(() {
               currentPage = index;
             });
-            debugPrint("dest select");
+            debugPrint(pages[index].toString());
           },
           destinations: const [
             NavigationDestination(

@@ -57,7 +57,7 @@ class _LocationFinderState extends State<LocationFinder> {
   //used to update the _latitude and _longitude; Student GPS Location
   Future<void> _updatePosition() async {
     Position pos = await _determinePosition();
-    List pm = await placemarkFromCoordinates(pos.latitude, pos.longitude);
+   // List pm = await placemarkFromCoordinates(pos.latitude, pos.longitude);
     setState(() {
       _latitude = pos.latitude.toString();
       _longitude = pos.longitude.toString();
@@ -142,17 +142,17 @@ class _LocationFinderState extends State<LocationFinder> {
                                   children: <Widget> [
                                     const Text ('Classroom Location:',
                                     style:  TextStyle(fontSize:20),),
-                                    Text('Latitude ' + instructorLatitude.toString(),
+                                    Text('Latitude : ${instructorLatitude.toString()}',
                                         style: TextStyle(fontSize:20)),
-                                    Text('Longitude ' + instructorLongitude.toString(),
+                                    Text('Longitude : ${instructorLongitude.toString()}',
                                         style: TextStyle(fontSize:20)),
                                     const Text('Your Location:',
                                         style: TextStyle(fontSize:20)),
-                                    Text('Latitude ' + _latitude,
+                                    Text('Latitude : $_latitude',
                                         style: TextStyle(fontSize:20)),
-                                    Text('Longitude ' + _longitude,
+                                    Text('Longitude : $_longitude',
                                         style: TextStyle(fontSize:20)),
-                                    Text('Difference ' + _difference,
+                                    Text('Difference : $_difference',
                                     style: TextStyle(fontSize:20)),
                                   ]):Center(child: CircularProgressIndicator()))
                         ,
@@ -293,10 +293,10 @@ class _LocationSetterState extends State<LocationSetter>{
                                 Center(child: CircularProgressIndicator()):
                                 Column(
                                   children: <Widget> [
-                                    Text('Latitude ' + _latitude,
+                                    Text('Latitude $_latitude',
                                       style: TextStyle(fontSize:20)
                                     ),
-                                    Text('Longitude ' + _longitude,
+                                    Text('Longitude $_longitude',
                                       style: TextStyle(fontSize:20)
                                     ),
                                   ]
