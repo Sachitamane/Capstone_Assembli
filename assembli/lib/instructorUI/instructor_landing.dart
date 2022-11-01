@@ -1,6 +1,6 @@
-import 'package:assembli/instructor_requests_page.dart';
-import 'package:assembli/instructor_courses_page.dart';
-import 'package:assembli/instructor_profile_page.dart';
+import 'package:assembli/instructorUI/instructor_requests_page.dart';
+import 'package:assembli/instructorUI/instructor_courses_page.dart';
+import 'package:assembli/instructorUI/instructor_profile_page.dart';
 import 'package:flutter/material.dart';
 
 //this file is the basis for how our application looks, once logged in

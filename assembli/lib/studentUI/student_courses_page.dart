@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 //import 'package:assembli/student_course_home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-//change to stateful, then figure out how to read from DB
-//https://www.youtube.com/watch?v=ZHdg2kfKmjI
-
 //missing connection to student_course_home.dart page upon pressing links
 
 class StudentCoursesPage extends StatefulWidget {
@@ -19,11 +16,9 @@ class _StudentCoursesPageState extends State<StudentCoursesPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      /*appBar: AppBar(
-        title: const Text('draft'),
-      ),*/
       body: Column(
       children: <Widget>[
+        //search bar : //https://www.youtube.com/watch?v=ZHdg2kfKmjI
         Container(
           margin: const EdgeInsets.all(16),
           child: TextField(
@@ -70,55 +65,3 @@ class _StudentCoursesPageState extends State<StudentCoursesPage> {
     ),
   );
 }
-
-/*
-class StudentCoursesPage extends StatelessWidget {
-  const StudentCoursesPage({Key? key}) : super(key: key);
-
-  //@override
-  //Widget build(BuildContext context) {
-  //return const Center(
-  //  child: Text("Courses Page"),
-  //);
-  //}
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        title: "ListView.builder",
-        theme: ThemeData(primarySwatch: Colors.green),
-        debugShowCheckedModeBanner: false,
-        // home : new ListViewBuilder(),  NO Need To Use Unnecessary New Keyword
-        home: const ListViewBuilder());
-  }
-}
-
-class ListViewBuilder extends StatelessWidget {
-  const ListViewBuilder({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.builder(
-          itemCount: 5,
-          itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-              leading: const Icon(Icons.account_circle),
-              title: Text("CS - 4366 Senior Capstone Project"),
-              onTap: () {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return const StudentCourseHome();
-                    },
-                  ),
-                  (route) => false,
-                );
-              },
-            );
-          }),
-    );
-  }
-}
-*/

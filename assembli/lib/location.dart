@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:assembli/student_course_home.dart';
+import 'package:assembli/studentUI/student_course_home.dart';
 import 'package:simple_timer/simple_timer.dart';
-import 'package:assembli/instructor_course_home.dart';
+import 'package:assembli/instructorUI/instructor_course_home.dart';
 
 
 /*
