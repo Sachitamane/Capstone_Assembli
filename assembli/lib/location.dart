@@ -6,6 +6,8 @@ import 'package:assembli/studentUI/student_course_home.dart';
 import 'package:simple_timer/simple_timer.dart';
 import 'package:assembli/instructorUI/instructor_course_home.dart';
 
+//references to student course home in this file will need to be 
+//updated with constructor requirements
 
 /*
     For Students Log Attendance
@@ -169,13 +171,16 @@ class _LocationFinderState extends State<LocationFinder> {
                                                               context,
                                                               MaterialPageRoute(
                                                                 builder: (BuildContext context) {
-                                                                  return const StudentCourseHome();
+                                                                  return const StudentCourseHome(
+                                                                    courseName: 'buffer',
+                                                                    courseNumb: 1111,
+                                                                  );
                                                                 },
                                                               ),
                                                               (route) => false,
                                                             );}), ]):
                                                             SimpleTimer(status: TimerStatus.start,duration: Duration(seconds: 10),onEnd: () => Navigator.pushAndRemoveUntil(
-                                                            context,MaterialPageRoute(builder: (BuildContext context) {return const StudentCourseHome();},),(route) => false,), ),
+                                                            context,MaterialPageRoute(builder: (BuildContext context) {return StudentCourseHome(courseName: 'buffer', courseNumb: 1111,);},),(route) => false,), ),
                                               ),
                                     ),
                   ],

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class StudentLanding extends StatefulWidget {
   const StudentLanding({super.key});
-
+  
   @override
   State<StudentLanding> createState() => _StudentLandingState();
 }
