@@ -67,6 +67,7 @@ class _StudentCoursesPageState extends State<StudentCoursesPage> {
                 itemBuilder: (context, index){
                   final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
                   
+                  
                   // allCourses.add(documentSnapshot);    //primarily for search functionality, not complete     
                   //adds all documents returned in the app list of type QueryDocumentSnapshot (subclass od DocumentSnapshot)
                   //basically don't want to query the dDB again just to search each time
@@ -77,7 +78,7 @@ class _StudentCoursesPageState extends State<StudentCoursesPage> {
                     child: ListTile(
                       title: Text(documentSnapshot['cname']), //allCourses[index].get('cname')),
                       subtitle: Text(documentSnapshot['cid'].toString()), //allCourses[index].get('cid').toString()),
-                      leading: const Icon(Icons.density_large),
+                      leading: const Icon(Icons.account_balance_wallet_outlined),
                       onTap: () {
                         Navigator.push(
                           context,

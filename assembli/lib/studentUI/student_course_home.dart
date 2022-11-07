@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:assembli/location.dart';
 
-class StudentCourseHome extends StatelessWidget {
+class StudentCourseHome extends StatefulWidget {
   //const StudentCourseHome({ Key? key }) : super(key: key);
 
   final String courseName;
@@ -14,10 +14,15 @@ class StudentCourseHome extends StatelessWidget {
   }) :super(key: key);
 
   @override
+  State<StudentCourseHome> createState() => _StudentCourseHomeState();
+}
+
+class _StudentCourseHomeState extends State<StudentCourseHome> {
+  @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       backgroundColor: const Color.fromARGB(255, 179, 194, 168),
-      title: Text(courseName),
+      title: Text(widget.courseName),
     ),
     body: const Center(child: Text("Location"),)
   );
