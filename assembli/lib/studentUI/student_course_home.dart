@@ -13,18 +13,20 @@ class StudentCourseHome extends StatelessWidget {
           backgroundColor: MaterialStatePropertyAll<Color>(
               Color.fromARGB(255, 179, 194, 168))),
       onPressed: () {
-            Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return const LocationFinder();
-                    },
-                  ),
-                  (route) => false,
-                );
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) {
+              return const LocationFinder();
+            },
+          ),
+          (route) => false,
+        );
       },
       child: const Text('Log my Attendance',
           style: TextStyle(color: Colors.white, fontSize: 25)),
     ));
   }
 }
+
+// Needs button to go to StudentRequestPage
