@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:assembli/studentUI/student_landing.dart';
 import 'package:assembli/instructorUI/instructor_landing.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 //this file creates the login state/appearance
 
@@ -13,6 +14,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   // Create controller to retrive the user input
   final myController = TextEditingController();
+  final CollectionReference courseCollection =
+      FirebaseFirestore.instance.collection('Users');
 
   // Clean up the controller
   @override
