@@ -1,9 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:assembli/login.dart';
-
-//class holds basis for profile destination;
-//will work similar to landing, linking other pages/states
-//(linked from navigationBar destination in landing.dart)
 
 class StudentProfilePage extends StatelessWidget {
   const StudentProfilePage({Key? key}) : super(key: key);
@@ -16,7 +12,7 @@ class StudentProfilePage extends StatelessWidget {
       style: const ButtonStyle(
           backgroundColor: MaterialStatePropertyAll<Color>(
               Color.fromARGB(255, 179, 194, 168))),
-      onPressed: () {
+      onPressed: () => FirebaseAuth.instance.signOut(),/*{
           Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
@@ -26,7 +22,7 @@ class StudentProfilePage extends StatelessWidget {
                       ),
                       (route) => false,
                     );
-      },
+      },*/
       child: const Text('Log Out',
           style: TextStyle(color: Colors.white, fontSize: 25)),
     ));
