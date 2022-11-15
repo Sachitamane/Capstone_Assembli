@@ -1,3 +1,6 @@
+//import 'dart:html';   //used for location.dart?
+
+import 'package:assembli/studentUI/student_course_home.dart';
 import 'package:flutter/material.dart';
 //import 'package:assembli/student_course_home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -51,7 +54,19 @@ class _StudentCoursesPageState extends State<StudentCoursesPage> {
                     margin: const EdgeInsets.all(16),
                     child: ListTile(
                       title: Text(documentSnapshot['cname']),
-                      subtitle: const Text('dubbb'),
+                      subtitle: Text(documentSnapshot['cid'].toString()),
+                      leading: const Icon(Icons.account_balance_wallet_outlined),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => StudentCourseHome(
+                            //constructor (passing course info)
+                            courseName: documentSnapshot['cname'],
+                            courseNumb: documentSnapshot['cid'],
+                            //student rnum here, somehow pass this throughout entire app
+                          )),
+                        );
+                      }
                     ),
                     );
                 },

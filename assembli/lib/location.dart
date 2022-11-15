@@ -118,7 +118,7 @@ class _LocationFinderState extends State<LocationFinder> {
               child: Column(
                 children: <Widget>[
                     //empty container for aesthetics
-                    Container(
+                    SizedBox(
                         height: 50,
                           width: 250,
                       ),
@@ -160,7 +160,7 @@ class _LocationFinderState extends State<LocationFinder> {
                                   //, if fails displays simple timer widget and returns to student course home page
                                   Padding(
                                     padding: EdgeInsets.all(30),
-                                    child: Container(
+                                    child: SizedBox(
                                               height:200,
                                               width: 250,
                                               child: !_cancheck?
@@ -169,13 +169,13 @@ class _LocationFinderState extends State<LocationFinder> {
                                                               context,
                                                               MaterialPageRoute(
                                                                 builder: (BuildContext context) {
-                                                                  return const StudentCourseHome();
+                                                                  return const StudentCourseHome(courseName: 'buffer', courseNumb: 1111);
                                                                 },
                                                               ),
                                                               (route) => false,
                                                             );}), ]):
                                                             SimpleTimer(status: TimerStatus.start,duration: Duration(seconds: 10),onEnd: () => Navigator.pushAndRemoveUntil(
-                                                            context,MaterialPageRoute(builder: (BuildContext context) {return const StudentCourseHome();},),(route) => false,), ),
+                                                            context,MaterialPageRoute(builder: (BuildContext context) {return const StudentCourseHome(courseName: 'buffer', courseNumb: 1111);},),(route) => false,), ),
                                               ),
                                     ),
                   ],
