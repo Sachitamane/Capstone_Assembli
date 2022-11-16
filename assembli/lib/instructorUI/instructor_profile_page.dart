@@ -1,5 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:assembli/login.dart';
 
 //class holds basis for profile destination;
 //will work similar to landing, linking other pages/states
@@ -12,23 +12,12 @@ class InstructorProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: ElevatedButton(
-      style: const ButtonStyle(
-          backgroundColor: MaterialStatePropertyAll<Color>(
-              Color.fromARGB(255, 179, 194, 168))),
-      onPressed: () {
-          Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) {
-                          return const Login();
-                        },
-                      ),
-                      (route) => false,
-                    );
-          },
-      child: const Text('Log Out',
-          style: TextStyle(color: Colors.white, fontSize: 25)),
-    ));
+      child: ElevatedButton(
+        style: const ButtonStyle(
+          backgroundColor: MaterialStatePropertyAll<Color>(Color.fromARGB(255, 179, 194, 168))),
+        onPressed: () => FirebaseAuth.instance.signOut(),
+        child: const Text('Log Out',style: TextStyle(color: Colors.white, fontSize: 25)),
+      )
+    );
   }
 }

@@ -68,7 +68,7 @@ class _StudentCoursesPageState extends State<StudentCoursesPage> {
                         );
                       }
                     ),
-                    );
+                  );
                 },
               );
             }
