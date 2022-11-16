@@ -84,8 +84,12 @@ class _InstructorRequestsPageState extends State<InstructorRequestsPage> {
                                                 MaterialStatePropertyAll<Color>(
                                                     Color.fromARGB(
                                                         255, 179, 194, 168))),
-                                        onPressed:
-                                            () {}, // Will need to add functionality to update to db
+                                        onPressed: () {
+                                          FirebaseFirestore.instance
+                                              .collection('Request')
+                                              .doc('0o4dfGlW1quxU2Axmlt8')
+                                              .update({'status': 'approved'});
+                                        },
                                         child: const Text(
                                           'Approve',
                                           style: TextStyle(
@@ -109,8 +113,12 @@ class _InstructorRequestsPageState extends State<InstructorRequestsPage> {
                                                           Color>(
                                                       Color.fromARGB(
                                                           255, 179, 194, 168))),
-                                          onPressed:
-                                              () {}, // Will need to add functionality to update to db
+                                          onPressed: () {
+                                            FirebaseFirestore.instance
+                                                .collection('Request')
+                                                .doc('0o4dfGlW1quxU2Axmlt8')
+                                                .update({'status': 'denied'});
+                                          },
                                           child: const Text(
                                             'Deny',
                                             style: TextStyle(
