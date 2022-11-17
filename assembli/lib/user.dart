@@ -5,4 +5,5 @@ class User {
   static List<String> rNums = [];
   static List<String> types = [];
   static String type = "";
+  static String cname = "";
 }

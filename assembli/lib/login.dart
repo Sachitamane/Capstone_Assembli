@@ -85,8 +85,9 @@ class _LoginState extends State<Login> {
                         final DocumentSnapshot documentSnapshot =
                             streamSnapshot.data!.docs[i];
                         User.emails.add(documentSnapshot['email']);
-                        User.passwords.add(documentSnapshot['password']);
-                        User.rNums.add(documentSnapshot['rnum']);
+
+                        //User.passwords.add(documentSnapshot['password']);
+                        // User.rNums.add(documentSnapshot['rnum']);
                         User.types.add(documentSnapshot['type']);
                       }
                     }
@@ -117,44 +118,28 @@ class _LoginState extends State<Login> {
                     backgroundColor: MaterialStatePropertyAll<Color>(
                         Color.fromARGB(255, 179, 194, 168))),
                 onPressed: () {
-                  // Student Landing
-                  print(User.emails);
-                  email = myController.text;
-                  pass = passControllers.text;
-                  validateUser();
-                  if (isValid) {
-                    if (User.type == "student") {
-                      //
-                      //pushAndRemoveUntil basically opens up the landing page
-                      //and removes access to the login page until some time
-                      //
-
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return const StudentLanding();
-                          },
-                        ),
-                        (route) => false,
-                      );
-                    }
-
-                    // Instructor Landing
-                    else if (User.type == "instructor") {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return const InstructorLanding();
-                          },
-                        ),
-                        (route) => false,
-                      );
-                    }
-
-                    // User is neither student or instructor
-                    // - NOT in our database/txtFile
+                  if (myController.text == "student") {
+                    User.rnum = "87654321";
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return const StudentLanding();
+                        },
+                      ),
+                      (route) => false,
+                    );
+                  } else if (myController.text == "instructor") {
+                    User.rnum = "12345678";
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return const InstructorLanding();
+                        },
+                      ),
+                      (route) => false,
+                    );
                   } else {
                     Navigator.pushAndRemoveUntil(
                       context,
@@ -166,6 +151,43 @@ class _LoginState extends State<Login> {
                       (route) => false,
                     );
                   }
+
+                  //simple verified login
+                  // Student Landing
+                  // print(User.emails);
+                  // email = myController.text;
+                  // pass = passControllers.text;
+                  // validateUser();
+                  // if (isValid) {
+                  //   if (User.type == "student") {
+                  //     //
+                  //     //pushAndRemoveUntil basically opens up the landing page
+                  //     //and removes access to the login page until some time
+                  //     //
+
+                  //     Navigator.pushAndRemoveUntil(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (BuildContext context) {
+                  //           return const StudentLanding();
+                  //         },
+                  //       ),
+                  //       (route) => false,
+                  //     );
+                  //   }
+
+                  //   // Instructor Landing
+                  //   else if (User.type == "instructor") {
+                  //     Navigator.pushAndRemoveUntil(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (BuildContext context) {
+                  //           return const InstructorLanding();
+                  //         },
+                  //       ),
+                  //       (route) => false,
+                  //     );
+                  //   }
                 },
                 child: const Text(
                   'Login',
