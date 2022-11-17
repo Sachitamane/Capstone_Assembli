@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'package:assembli/student_course_home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:assembli/user.dart';
 //missing connection to student_course_home.dart page upon pressing links
 
 class StudentCoursesPage extends StatefulWidget {
@@ -15,7 +15,8 @@ class _StudentCoursesPageState extends State<StudentCoursesPage> {
   final controller = TextEditingController();
   final CollectionReference courseCollection =
       FirebaseFirestore.instance.collection('Course');
-
+  final CollectionReference studentCourses =
+      FirebaseFirestore.instance.collection('Roster');
   @override
   Widget build(BuildContext context) => Scaffold(
         body: Column(children: <Widget>[
@@ -36,7 +37,21 @@ class _StudentCoursesPageState extends State<StudentCoursesPage> {
               // onChanged: searchCourse,
             ),
           ),
-
+          StreamBuilder(
+              stream: studentCourses.snapshots(),
+              builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                if (streamSnapshot.hasData) {
+                  int index = streamSnapshot.data!.docs.length;
+                  for (int i = 0; i < index; i++) {
+                    final DocumentSnapshot documentSnapshot =
+                        streamSnapshot.data!.docs[i];
+                    if (documentSnapshot['rnum'] == User.rnum) {
+                      User.Courses = documentSnapshot['Courses'];
+                    }
+                  }
+                }
+                return const Center();
+              }),
           //may work with better connection or different wifi, try again later
           //ref video for CRUD (Read) db operations https://www.youtube.com/watch?v=n1PM9XcYD5s&list=PL4tcFRTiQTj2BeFQ0e97C0ZQAi8l-HOM4&index=4
           Expanded(
@@ -50,13 +65,18 @@ class _StudentCoursesPageState extends State<StudentCoursesPage> {
                       itemBuilder: (context, index) {
                         final DocumentSnapshot documentSnapshot =
                             streamSnapshot.data!.docs[index];
-                        return Card(
-                          margin: const EdgeInsets.all(16),
-                          child: ListTile(
-                            title: Text(documentSnapshot['cname']),
-                            subtitle: const Text('dubbb'),
-                          ),
-                        );
+                        if (User.Courses.contains(
+                            documentSnapshot['crn'].toString())) {
+                          return Card(
+                            margin: const EdgeInsets.all(16),
+                            child: ListTile(
+                              title: Text(documentSnapshot['cname']),
+                              subtitle: const Text('dubbb'),
+                            ),
+                          );
+                        } else {
+                          return Center();
+                        }
                       },
                     );
                   }
