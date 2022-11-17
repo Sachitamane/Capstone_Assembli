@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:assembli/location.dart';
 import 'package:assembli/instructorUI/instructor_announcement.dart';
 import 'package:assembli/user.dart';
+import 'package:assembli/instructorUI/instructor_landing.dart';
 
 class InstructorCourseHome extends StatefulWidget {
   const InstructorCourseHome({super.key});
@@ -55,7 +56,7 @@ class _InstructorCourseHomeState extends State<InstructorCourseHome> {
                   context,
                   MaterialPageRoute(
                     builder: (BuildContext context) {
-                      return const InstructorAnnouncement();
+                      return InstructorAnnouncement();
                     },
                   ),
                 );
@@ -63,7 +64,27 @@ class _InstructorCourseHomeState extends State<InstructorCourseHome> {
               child: const Text('Make Announcement',
                   style: TextStyle(color: Colors.white, fontSize: 25)),
             ),
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: ElevatedButton(
+              style: const ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll<Color>(
+                      Color.fromARGB(255, 179, 194, 168))),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return const InstructorLanding();
+                    },
+                  ),
+                );
+              },
+              child: const Text('Back to Courses',
+                  style: TextStyle(color: Colors.white, fontSize: 25)),
+            ),
+          ),
         ],
       )),
     );

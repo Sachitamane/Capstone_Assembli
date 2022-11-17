@@ -51,7 +51,6 @@ class _InstructorCoursesPageState extends State<InstructorCoursesPage> {
                       itemBuilder: (context, index) {
                         final DocumentSnapshot documentSnapshot =
                             streamSnapshot.data!.docs[index];
-                        print(documentSnapshot['rnum']);
                         if (documentSnapshot['rnum'].toString() == User.rnum) {
                           return ElevatedButton(
                             style: const ButtonStyle(
@@ -60,6 +59,8 @@ class _InstructorCoursesPageState extends State<InstructorCoursesPage> {
                                         Color.fromARGB(255, 179, 194, 168))),
                             onPressed: () {
                               User.cname = documentSnapshot['cname'];
+                              User.cid = documentSnapshot['cid'];
+                              User.crn = documentSnapshot['crn'];
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -68,15 +69,6 @@ class _InstructorCoursesPageState extends State<InstructorCoursesPage> {
                                   },
                                 ),
                               );
-                              // Navigator.pushAndRemoveUntil(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (BuildContext context) {
-                              //       return const InstructorCourseHome();
-                              //     },
-                              //   ),
-                              //   (route) => false,
-                              // );
                             },
                             child: Card(
                               margin: const EdgeInsets.all(16),
@@ -86,14 +78,6 @@ class _InstructorCoursesPageState extends State<InstructorCoursesPage> {
                               ),
                             ),
                           );
-                          // Card(
-                          //   margin: const EdgeInsets.all(16),
-                          //   child: ListTile(
-                          //     title: Text(documentSnapshot['cname']),
-                          //     subtitle: const Text('dubbb'),
-                          //   ),
-
-                          // );
                         } else {
                           return Center();
                         }

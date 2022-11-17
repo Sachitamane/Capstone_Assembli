@@ -6,4 +6,6 @@ class User {
   static List<String> types = [];
   static String type = "";
   static String cname = "";
+  static int crn = 0;
+  static int cid = 0;
 }
