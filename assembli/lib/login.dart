@@ -1,17 +1,6 @@
-//import 'package:assembli/instructorUI/instructor_landing.dart';
 //import 'package:assembli/main.dart';
-//import 'package:assembli/studentUI/student_landing.dart';
-//import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:assembli/instructorUI/instructor_landing.dart';
-import 'package:assembli/main.dart';
-import 'package:assembli/studentUI/student_landing.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-//import 'package:assembli/studentUI/student_landing.dart';
-//import 'package:assembli/instructorUI/instructor_landing.dart';
-
-//this file creates the login state/appearance
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -20,9 +9,9 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  //bool _isObscure3 = true;
-  //bool visible = false;
+
   final _formkey = GlobalKey<FormState>();
+  //bool loading = false;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -137,6 +126,17 @@ class _LoginState extends State<Login> {
                                 Color.fromARGB(255, 179, 194, 168))
                                 ),
                           onPressed: signIn,
+                          /*
+                          onPressed: () async{
+                            dynamic result = signIn;
+                            if(result == null){
+                              setState(() {
+                                loading = false;
+                              });
+                            }
+                            
+                          },
+                          */
                           child: const Text(
                             'Login',
                             style: TextStyle(color: Colors.white, fontSize: 25),
@@ -189,11 +189,13 @@ class _LoginState extends State<Login> {
   }
 */
   Future signIn() async {
+    /*
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) => const Center(child: CircularProgressIndicator()),
     ); 
+    */
 
     try{
       await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -205,6 +207,6 @@ class _LoginState extends State<Login> {
       debugPrint('error found : ${e.toString()}  ');
     }
     
-    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+   // navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }
