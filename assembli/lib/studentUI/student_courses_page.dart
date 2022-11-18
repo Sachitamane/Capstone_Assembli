@@ -1,3 +1,6 @@
+//import 'dart:html';   //used for location.dart?
+
+import 'package:assembli/studentUI/student_course_home.dart';
 import 'package:flutter/material.dart';
 //import 'package:assembli/student_course_home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -29,12 +32,12 @@ class _StudentCoursesPageState extends State<StudentCoursesPage> {
               border: OutlineInputBorder(
                 borderRadius:  BorderRadius.circular(20),
                 borderSide: const BorderSide(color: Color.fromARGB(255, 179, 194, 168))
+              ),
             ),
+            /////////////////////START HERE LATER
+            // onChanged: searchCourse, 
           ),
-          /////////////////////START HERE LATER
-         // onChanged: searchCourse, 
         ),
-      ),
 
       //may work with better connection or different wifi, try again later
       //ref video for CRUD (Read) db operations https://www.youtube.com/watch?v=n1PM9XcYD5s&list=PL4tcFRTiQTj2BeFQ0e97C0ZQAi8l-HOM4&index=4
@@ -51,9 +54,21 @@ class _StudentCoursesPageState extends State<StudentCoursesPage> {
                     margin: const EdgeInsets.all(16),
                     child: ListTile(
                       title: Text(documentSnapshot['cname']),
-                      subtitle: const Text('dubbb'),
+                      subtitle: Text(documentSnapshot['cid'].toString()),
+                      leading: const Icon(Icons.account_balance_wallet_outlined),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => StudentCourseHome(
+                            //constructor (passing course info)
+                            courseName: documentSnapshot['cname'],
+                            courseNumb: documentSnapshot['cid'],
+                            //student rnum here, somehow pass this throughout entire app
+                          )),
+                        );
+                      }
                     ),
-                    );
+                  );
                 },
               );
             }

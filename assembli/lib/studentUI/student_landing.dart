@@ -12,6 +12,9 @@ class StudentLanding extends StatefulWidget {
   State<StudentLanding> createState() => _StudentLandingState();
 }
 
+//https://www.youtube.com/watch?v=P3x-JuA23SE
+//proper routing with keeping the navigation bar there persistent
+
 class _StudentLandingState extends State<StudentLanding> {
 
   int currentPage = 1;
