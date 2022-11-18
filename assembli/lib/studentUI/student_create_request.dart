@@ -17,72 +17,150 @@ class _StudentCreateRequest extends State<StudentCreateRequest> {
   final dateController = TextEditingController();
   final reasonController = TextEditingController();
   final rnumController = TextEditingController();
+  final _formKey = GlobalKey<FormState>(); // Used to validate user input
 
   CollectionReference requests =
       FirebaseFirestore.instance.collection('Request');
 
   @override
-  Widget build(BuildContext context) => SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            // Get course id
-            TextField(
-              controller: cidController,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'cid',
-                  hintText: 'Enter course id'),
-            ),
-
-            // Get date of absence
-            TextField(
-              controller: dateController,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'date',
-                  hintText: 'Enter date of absence'),
-            ),
-
-            // Get reason of absence
-            TextField(
-              controller: reasonController,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'reason',
-                  hintText: 'Enter reason of absence'),
-            ),
-
-            // Get student r number
-            TextField(
-              controller: rnumController,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'rnum',
-                  hintText: 'Enter your r number'),
-            ),
-
-            // Submit button
-            ElevatedButton(
-              style: const ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll<Color>(
-                      Color.fromARGB(255, 179, 194, 168))),
-              onPressed: () {
-                // Add new document to "Request" collection with user input as fields
-                // In future, some may not be user input, such as rnum or cid
-                FirebaseFirestore.instance.collection('Request').add({
-                  'cid': cidController.text,
-                  'date': dateController.text,
-                  'reason': reasonController.text,
-                  'rnum': rnumController.text,
-                  'status': 'pending', // Will always be pending
-                });
-              },
-              child: const Text(
-                'Submit',
-                style: TextStyle(color: Colors.white, fontSize: 17),
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: false, // Keyboard overlay
+      body: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              const SizedBox(height: 35),
+              // Display prompt
+              const Padding(
+                padding: EdgeInsets.only(top: 20, bottom: 10),
+                child: DefaultTextStyle(
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 141, 143, 140),
+                      fontSize: 23,
+                      fontStyle: FontStyle.italic),
+                  child: Text('Enter request details'),
+                ),
               ),
-            )
-          ],
+
+              // Get cid
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  controller: cidController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Course ID',
+                    hintText: 'Enter Course ID',
+                  ),
+                  style: const TextStyle(fontSize: 20),
+                  validator: (text) {
+                    if (text == null || text.isEmpty) {
+                      return 'Input course ID'; // Error text: no user input
+                    }
+                    return null;
+                  },
+                ),
+              ),
+
+              // Get date
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  controller: dateController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Date',
+                    hintText: 'Enter date of absence',
+                  ),
+                  style: const TextStyle(fontSize: 20),
+                  validator: (text) {
+                    if (text == null || text.isEmpty) {
+                      return 'Input date'; // Error text: no user input
+                    }
+                    return null;
+                  },
+                ),
+              ),
+
+              // Get reason
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  controller: reasonController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Reason',
+                  ),
+                  style: const TextStyle(fontSize: 20),
+                  validator: (text) {
+                    if (text == null || text.isEmpty) {
+                      return 'Input reason'; // Error text: no user input
+                    }
+                    return null;
+                  },
+                ),
+              ),
+
+              // Get rnum
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  controller: rnumController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'R Number',
+                    hintText: 'Enter your R Number',
+                  ),
+                  style: const TextStyle(fontSize: 20),
+                  validator: (text) {
+                    if (text == null || text.isEmpty) {
+                      return 'Input R Number'; // Error text: no user input
+                    }
+                    return null;
+                  },
+                ),
+              ),
+
+              // Submit button
+              Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 20),
+                child: SizedBox(
+                  width: 110,
+                  height: 45,
+                  child: ElevatedButton(
+                    style: const ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll<Color>(
+                            Color.fromARGB(255, 179, 194, 168))),
+                    onPressed: () {
+                      // First check that every field contains text
+                      if (_formKey.currentState!.validate()) {
+                        _formKey.currentState!.save();
+                        // Then, update to database
+                        FirebaseFirestore.instance.collection('Request').add({
+                          'cid': cidController.text,
+                          'date': dateController.text,
+                          'reason': reasonController.text,
+                          'rnum': rnumController.text,
+                          'status': 'pending', // Saved as pending status
+                        });
+                      }
+                    },
+                    child: const Text(
+                      'Submit',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 23,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-      );
+      ),
+    );
+  }
 }
