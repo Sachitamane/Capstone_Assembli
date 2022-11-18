@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Displays all pending requests in "Request" collection
-// Each has approve and deny button
-// onPressed(){} needs to be unique for each document, document id unknown?
+// Can be approved or denied, db will update accordingly
 
 class InstructorRequestsPage extends StatefulWidget {
   const InstructorRequestsPage({super.key});
@@ -37,7 +36,7 @@ class _InstructorRequestsPageState extends State<InstructorRequestsPage> {
                         return Card(
                           margin: const EdgeInsets.all(10),
                           child: ListTile(
-                            // title: show student request information
+                            // title: row showing student request information
                             title: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
@@ -79,10 +78,8 @@ class _InstructorRequestsPageState extends State<InstructorRequestsPage> {
                                                 Color.fromARGB(
                                                     255, 179, 194, 168))),
                                     onPressed: () {
-                                      // Update status in db
-                                      FirebaseFirestore.instance
-                                          .collection('Request')
-                                          .doc('0o4dfGlW1quxU2Axmlt8')
+                                      // Update status in db for specific document
+                                      documentSnapshot.reference
                                           .update({'status': 'approved'});
                                     },
                                     child: const Text(
@@ -105,10 +102,8 @@ class _InstructorRequestsPageState extends State<InstructorRequestsPage> {
                                                 Color.fromARGB(
                                                     255, 179, 194, 168))),
                                     onPressed: () {
-                                      // Update status in db
-                                      FirebaseFirestore.instance
-                                          .collection('Request')
-                                          .doc('0o4dfGlW1quxU2Axmlt8')
+                                      // Update status in db for specific document
+                                      documentSnapshot.reference
                                           .update({'status': 'denied'});
                                     },
                                     child: const Text(
