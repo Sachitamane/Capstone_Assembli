@@ -3,7 +3,6 @@ import 'package:assembli/user.dart';
 import 'package:flutter/material.dart';
 import 'package:assembli/instructorUI/instructor_course_home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 class InstructorAnnouncement extends StatelessWidget {
   InstructorAnnouncement({Key? key}) : super(key: key);

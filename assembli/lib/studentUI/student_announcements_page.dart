@@ -14,6 +14,7 @@ class _StudentAnnouncementsPage extends State<StudentAnnouncementsPage> {
       FirebaseFirestore.instance.collection('Announcement');
   @override
   Widget build(BuildContext context) {
+    User.courses = ["32061", "34422", "39471", "34421"];
     return Expanded(
       child: StreamBuilder(
           stream: announcementCollection.snapshots(),
