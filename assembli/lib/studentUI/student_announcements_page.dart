@@ -24,8 +24,8 @@ class _StudentAnnouncementsPage extends State<StudentAnnouncementsPage> {
                 itemBuilder: (context, index) {
                   final DocumentSnapshot documentSnapshot =
                       streamSnapshot.data!.docs[index];
-                  if (User.Courses.contains(
-                      documentSnapshot['crn'].toString())) {
+                  if (User.courses
+                      .contains(documentSnapshot['crn'].toString())) {
                     return Card(
                       margin: const EdgeInsets.all(16),
                       child: ListTile(

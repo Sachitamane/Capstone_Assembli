@@ -46,7 +46,7 @@ class _StudentCoursesPageState extends State<StudentCoursesPage> {
                     final DocumentSnapshot documentSnapshot =
                         streamSnapshot.data!.docs[i];
                     if (documentSnapshot['rnum'] == User.rnum) {
-                      User.Courses = documentSnapshot['Courses'];
+                      User.courses = documentSnapshot['Courses'];
                     }
                   }
                 }
@@ -65,8 +65,8 @@ class _StudentCoursesPageState extends State<StudentCoursesPage> {
                       itemBuilder: (context, index) {
                         final DocumentSnapshot documentSnapshot =
                             streamSnapshot.data!.docs[index];
-                        if (User.Courses.contains(
-                            documentSnapshot['crn'].toString())) {
+                        if (User.courses
+                            .contains(documentSnapshot['crn'].toString())) {
                           return Card(
                             margin: const EdgeInsets.all(16),
                             child: ListTile(
