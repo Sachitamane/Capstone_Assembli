@@ -1,3 +1,6 @@
+//example file, not in-use
+//commented out
+
 class AppUser {
   String? email;
   int? rnum;

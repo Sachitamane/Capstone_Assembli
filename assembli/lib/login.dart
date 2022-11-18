@@ -1,4 +1,4 @@
-//import 'package:assembli/main.dart';
+//import 'package:assembli/main.dart'; ///used for navigatorkey, commented out as well
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -9,15 +9,11 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
   final _formkey = GlobalKey<FormState>();
-  //bool loading = false;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   // Clean up the controller
-
-  //comment out dispose method if using rool from git rool
   @override
   void dispose() {
     emailController.dispose();
@@ -25,7 +21,6 @@ class _LoginState extends State<Login> {
 
     super.dispose();
   }
- 
 
   @override
   Widget build(BuildContext context) {
@@ -67,13 +62,10 @@ class _LoginState extends State<Login> {
                           if (value!.isEmpty) {
                             return "Email cannot be empty";
                           }
-                          if (value.endsWith('@ttu.edu') == false)//!RegExp(
-                              //"^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-                            //.hasMatch(value))
+                          if (value.endsWith('@ttu.edu') == false)
                             {
                               return ("Please enter an adress within @ttu.edu");
                             } else {
-                              
                               return null;
                             }
                         },
@@ -101,7 +93,8 @@ class _LoginState extends State<Login> {
                           }
                           if (!regex.hasMatch(value)) {
                             return ("please enter valid password min. 6 character");
-                          } else {
+                          }
+                          else {
                             return null;
                           }
                         },
@@ -126,23 +119,11 @@ class _LoginState extends State<Login> {
                                 Color.fromARGB(255, 179, 194, 168))
                                 ),
                           onPressed: signIn,
-                          /*
-                          onPressed: () async{
-                            dynamic result = signIn;
-                            if(result == null){
-                              setState(() {
-                                loading = false;
-                              });
-                            }
-                            
-                          },
-                          */
                           child: const Text(
                             'Login',
                             style: TextStyle(color: Colors.white, fontSize: 25),
                           ),
-                        ),
-                        
+                        ), 
                       ),
                       const SizedBox(
                         height: 85,
@@ -189,14 +170,6 @@ class _LoginState extends State<Login> {
   }
 */
   Future signIn() async {
-    /*
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => const Center(child: CircularProgressIndicator()),
-    ); 
-    */
-
     try{
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(),
@@ -206,7 +179,6 @@ class _LoginState extends State<Login> {
     } on FirebaseAuthException catch (e) {
       debugPrint('error found : ${e.toString()}  ');
     }
-    
-   // navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    //navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }

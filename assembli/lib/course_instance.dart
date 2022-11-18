@@ -1,5 +1,6 @@
 //utilized for searchCourse function in student_courses_page.dart 
-//<commented out>
+//example file, not in-use
+//commented out
 
 
 class Course{

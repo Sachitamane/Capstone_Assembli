@@ -34,13 +34,14 @@ class _UserRouteState extends State<UserRoute> {
   final _usersCollection = FirebaseFirestore.instance.collection('Users');
   late Future<String> typeFuture;
   bool student = false;
+
   @override 
   void initState() {
     super.initState();
     typeFuture = _getType();
   }
 
-   Future<String> _getType() async {
+  Future<String> _getType() async {
     String temp='';
     await _usersCollection.doc(widget.user.uid).get().then((DocumentSnapshot snapshot) {
         temp = snapshot.get('type');
@@ -53,17 +54,23 @@ class _UserRouteState extends State<UserRoute> {
       
     //return type? const StudentLanding() : const InstructorLanding();
     return FutureBuilder(
-      future: typeFuture,
+      future: typeFuture,  
       builder: (context, snapshot) {
+
         switch (snapshot.connectionState) {
           case ConnectionState.none:
             return const Text('none');
           case ConnectionState.active:
           case ConnectionState.waiting:
-            return const Center(
+            return Column(children: const <Widget>[
+              Center(
               child: SpinKitPianoWave(
               color: Color.fromARGB(255, 179, 194, 168)),
-            );
+              ),
+              Center(
+                  child: Text('Setting things up')
+              ),
+            ],);
           case ConnectionState.done:
             if(snapshot.data!.compareTo('student') ==0){
               student = true;
