@@ -6,34 +6,37 @@ import 'package:flutter/material.dart';
 //this file is the basis for how our application looks, once logged in
 
 class StudentLanding extends StatefulWidget {
-  const StudentLanding({super.key});
-  
+  final String passedEmail;
+
+  const StudentLanding({Key? key, required this.passedEmail}) : super(key: key);
+
   @override
   State<StudentLanding> createState() => _StudentLandingState();
 }
 
 class _StudentLandingState extends State<StudentLanding> {
-
   int currentPage = 1;
-
-  //list is used for the bottom navigation bar
-  final pages = const [
-    StudentAnnouncementsPage(),
-    StudentCoursesPage(),
-    StudentProfilePage()
-  ];
 
   @override
   Widget build(BuildContext context) {
+    //list is used for the bottom navigation bar
+    final pages = [
+      StudentAnnouncementsPage(),
+      StudentCoursesPage(
+        passedEmail: widget.passedEmail,
+      ),
+      StudentProfilePage()
+    ];
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 179, 194, 168),
         title: const Text('Assembli'),
       ),
-      body : IndexedStack(
+      body: IndexedStack(
         index: currentPage,
         children: pages,
-        ),
+      ),
       bottomNavigationBar: NavigationBarTheme(
         data: const NavigationBarThemeData(
           indicatorColor: Color.fromARGB(255, 133, 151, 118),

@@ -13,6 +13,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   // Create controller to retrive the user input
   final myController = TextEditingController();
+  String userEmail = "";
 
   // Clean up the controller
   @override
@@ -82,12 +83,13 @@ class _LoginState extends State<Login> {
                     //pushAndRemoveUntil basically opens up the landing page
                     //and removes access to the login page until some time
                     //
+                    userEmail = myController.text;
 
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
                         builder: (BuildContext context) {
-                          return const StudentLanding();
+                          return StudentLanding(passedEmail: userEmail);
                         },
                       ),
                       (route) => false,
@@ -96,11 +98,15 @@ class _LoginState extends State<Login> {
 
                   // Instructor Landing
                   else if (myController.text == "instructor") {
+                    userEmail = myController.text;
+
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
                         builder: (BuildContext context) {
-                          return const InstructorLanding();
+                          return InstructorLanding(
+                            passedEmail: userEmail,
+                          );
                         },
                       ),
                       (route) => false,

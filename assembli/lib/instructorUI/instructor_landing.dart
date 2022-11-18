@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 //this file is the basis for how our application looks, once logged in
 
 class InstructorLanding extends StatefulWidget {
-  const InstructorLanding({super.key});
+  final String passedEmail;
+
+  const InstructorLanding({Key? key, required this.passedEmail})
+      : super(key: key);
 
   @override
   State<InstructorLanding> createState() => _InstructorLandingState();
@@ -17,15 +20,17 @@ class _InstructorLandingState extends State<InstructorLanding> {
   //setting the index value in selectedIndex: (see line 41 and line 47) aka setState()
   int currentPage = 1;
 
-  //list is used for the bottom navigation bar
-  List pages = const [
-    InstructorRequestsPage(),
-    InstructorCoursesPage(),
-    InstructorProfilePage()
-  ];
-
   @override
   Widget build(BuildContext context) {
+    //list is used for the bottom navigation bar
+    List pages = [
+      InstructorRequestsPage(),
+      InstructorCoursesPage(
+        passedEmail: widget.passedEmail,
+      ),
+      InstructorProfilePage()
+    ];
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 179, 194, 168),
