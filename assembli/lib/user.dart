@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class User {
   static String rnum = "";
   static List<String> emails = [];
@@ -10,6 +8,5 @@ class User {
   static String cname = "";
   static int crn = 0;
   static int cid = 0;
-  static List<int> CRNs = [];
-  static List<dynamic> Courses = [];
+  static List<dynamic> courses = [];
 }

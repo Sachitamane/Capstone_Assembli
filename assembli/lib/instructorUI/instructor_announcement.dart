@@ -44,15 +44,7 @@ class InstructorAnnouncement extends StatelessWidget {
                 "crn": User.crn,
                 "message": announcement
               });
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return const InstructorCourseHome();
-                  },
-                ),
-                (route) => false,
-              );
+              Navigator.pop(context);
             },
             child: const Text(
               'Make Announcement',
