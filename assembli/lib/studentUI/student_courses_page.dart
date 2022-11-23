@@ -16,11 +16,14 @@ class StudentCoursesPage extends StatefulWidget {
 class _StudentCoursesPageState extends State<StudentCoursesPage> {
   final controller = TextEditingController();
   final CollectionReference courseCollection = FirebaseFirestore.instance.collection('Course');
-
+  
   @override
   Widget build(BuildContext context) => Scaffold(
+
       body: Column(
       children: <Widget>[
+
+
         //search bar : //https://www.youtube.com/watch?v=ZHdg2kfKmjI
         Container(
           margin: const EdgeInsets.all(16),
@@ -39,7 +42,7 @@ class _StudentCoursesPageState extends State<StudentCoursesPage> {
           ),
         ),
 
-      //may work with better connection or different wifi, try again later
+      //courses list
       //ref video for CRUD (Read) db operations https://www.youtube.com/watch?v=n1PM9XcYD5s&list=PL4tcFRTiQTj2BeFQ0e97C0ZQAi8l-HOM4&index=4
       Expanded(
         child: StreamBuilder(
@@ -57,6 +60,7 @@ class _StudentCoursesPageState extends State<StudentCoursesPage> {
                       subtitle: Text(documentSnapshot['cid'].toString()),
                       leading: const Icon(Icons.account_balance_wallet_outlined),
                       onTap: () {
+                        
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => StudentCourseHome(

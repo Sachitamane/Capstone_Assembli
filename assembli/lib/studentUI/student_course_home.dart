@@ -1,3 +1,5 @@
+import 'package:assembli/location.dart';
+import 'package:assembli/studentUI/student_create_request.dart';
 import 'package:flutter/material.dart';
 //import 'package:assembli/location.dart';
 
@@ -17,14 +19,53 @@ class StudentCourseHome extends StatefulWidget {
 }
 
 class _StudentCourseHomeState extends State<StudentCourseHome> {
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       backgroundColor: const Color.fromARGB(255, 179, 194, 168),
       title: Text(widget.courseName),
     ),
-    body: const Center(child: Text("Location"),)
-  );
+    //body: const Center(child: Text("Location"),)
+    body: Column(children: <Widget>[
+        ElevatedButton(
+          style: const ButtonStyle(
+              backgroundColor: MaterialStatePropertyAll<Color>(
+                  Color.fromARGB(255, 179, 194, 168))),
+          onPressed: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return const LocationFinder();
+                },
+              ),
+              (route) => false,
+            );
+          },
+          child: const Text('Log my Attendance',
+              style: TextStyle(color: Colors.white, fontSize: 25)),
+        ),
+        ElevatedButton(
+          style: const ButtonStyle(
+              backgroundColor: MaterialStatePropertyAll<Color>(
+                  Color.fromARGB(255, 179, 194, 168))),
+          onPressed: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return const StudentCreateRequest();
+                },
+              ),
+              (route) => false,
+            );
+          },
+          child: const Text('Request Excused Absence',
+              style: TextStyle(color: Colors.white, fontSize: 25)),
+        ),
+      ]));
+
 }
 //old StudentCourseHomeState
 /*

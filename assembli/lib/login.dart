@@ -139,36 +139,7 @@ class _LoginState extends State<Login> {
       ),
     );
   }
-/*
-  void route() {
-    User? user = FirebaseAuth.instance.currentUser;
-    var kk = FirebaseFirestore.instance
-            .collection('users')
-            .doc(user!.uid)
-            .get()
-            .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        if (documentSnapshot.get('type') == "instructor") {
-           Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>  const InstructorLanding(),
-          ),
-        );
-        }else{
-          Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>  const StudentLanding(),
-          ),
-        );
-        }
-      } else {
-        debugPrint('Document does not exist on the database');
-      }
-    });
-  }
-*/
+
   Future signIn() async {
     try{
       await FirebaseAuth.instance.signInWithEmailAndPassword(
