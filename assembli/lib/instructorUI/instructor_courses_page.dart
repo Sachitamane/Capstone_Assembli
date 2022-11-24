@@ -14,21 +14,18 @@ class _InstructorCoursesPageState extends State<InstructorCoursesPage> {
   final CollectionReference courseCollection =
       FirebaseFirestore.instance.collection('Course');
 
-  List allCourses = []; //courseCollection.get()
+  List allCourses = [];
 
-/*
-  docToObject(List<dynamic> courses){
-      for (var element in courses) {
-        var data = element.get(); 
-        debugPrint(data.toString());
-      }
-    
+  //courseCollection.get()
+
+  docToObject(List<dynamic> courses) {
+    for (var element in courses) {
+      var data = element.get();
+      debugPrint(data.toString());
+    }
   }
 
-  searchCourse(String query) {
-    
-  }
-*/
+  searchCourse(String query) {}
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -46,7 +43,7 @@ class _InstructorCoursesPageState extends State<InstructorCoursesPage> {
                         color: Color.fromARGB(255, 179, 194, 168))),
               ),
               /////////////////////SEARCH STILL IN PROGRESS
-              //onChanged: searchCourse,
+              onChanged: searchCourse,
             ),
           ),
           Expanded(
