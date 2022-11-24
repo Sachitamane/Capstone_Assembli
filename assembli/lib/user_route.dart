@@ -12,18 +12,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 
-//final collection = FirebaseFirestore.instance.collection('Users');
-//final user = FirebaseAuth.instance.currentUser!;
-
 class UserRoute extends StatefulWidget {
-  final User user;
+  /*final User user;
   
   const UserRoute({
     Key? key,
     required this.user
   }) : super(key: key);
-  
-  //const UserRoute({super.key});
+  */
+  const UserRoute({super.key});
 
   @override
   State<UserRoute> createState() => _UserRouteState();
@@ -32,27 +29,27 @@ class UserRoute extends StatefulWidget {
 class _UserRouteState extends State<UserRoute> {
 
   final _usersCollection = FirebaseFirestore.instance.collection('Users');
-  late Future<String> typeFuture;
+  final User? user = FirebaseAuth.instance.currentUser;
+  late Future<String>? typeFuture;
   bool student = false;
 
   @override 
   void initState() {
     super.initState();
-    typeFuture = _getType();
+    typeFuture = getType();
   }
 
-  Future<String> _getType() async {
+  Future<String> getType() async {
     String temp='';
-    await _usersCollection.doc(widget.user.uid).get().then((DocumentSnapshot snapshot) {
+    await _usersCollection.doc(user!.uid).get().then((DocumentSnapshot snapshot) {
         temp = snapshot.get('type');
       });
       debugPrint('temp equals $temp in getType method');
     return temp;
   }
+  
   @override
   Widget build(BuildContext context) {
-      
-    //return type? const StudentLanding() : const InstructorLanding();
     return FutureBuilder(
       future: typeFuture,  
       builder: (context, snapshot) {
@@ -62,28 +59,23 @@ class _UserRouteState extends State<UserRoute> {
             return const Text('none');
           case ConnectionState.active:
           case ConnectionState.waiting:
-            return Column(children: const <Widget>[
-              Center(
+            //debugPrint(snapshot.data!);
+            return const Center(
               child: SpinKitPianoWave(
               color: Color.fromARGB(255, 179, 194, 168)),
-              ),
-              Center(
-                  child: Text('Setting things up')
-              ),
-            ],);
+              );
           case ConnectionState.done:
             if(snapshot.data!.compareTo('student') ==0){
-              student = true;
+              debugPrint('-------------------student landing-------------------');
               return const StudentLanding();
             }
             if(snapshot.data!.compareTo('instructor') ==0){
-              student = false;
+              debugPrint('-------------------instructor landing-------------------');
               return const InstructorLanding();
             }
             else{
               return const Center(child: Text('error'));
             }
-            //return student? const StudentLanding() : const InstructorLanding();
             
           default:
             return const Center(child: Text('missing document'));
@@ -91,6 +83,8 @@ class _UserRouteState extends State<UserRoute> {
       }
     );
   }
+    
+
 }
 
 /*

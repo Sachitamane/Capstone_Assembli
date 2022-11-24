@@ -34,7 +34,7 @@ class MainPage extends StatelessWidget {
                                                           //depends on signIn response
       builder: (context, snapshot) {                      //snapshot is the returned result of authStateChanges(),
         if(snapshot.hasData ){
-          return UserRoute(user: snapshot.data!);        //routing /loading page          
+          return const UserRoute();//(user: snapshot.data!);        //routing /loading page          
         } else{
           return const Login();
         }

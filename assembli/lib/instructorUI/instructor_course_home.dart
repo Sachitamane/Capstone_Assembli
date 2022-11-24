@@ -2,7 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:assembli/location.dart';
 
 class InstructorCourseHome extends StatelessWidget {
-  const InstructorCourseHome({Key? key}) : super(key: key);
+  final String courseName;
+  final int courseNumb;
+
+  const InstructorCourseHome({
+    Key? key,
+    required this.courseName,
+    required this.courseNumb,
+  }) : super(key: key);
+  
+ // const InstructorCourseHome({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

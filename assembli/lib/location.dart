@@ -328,12 +328,15 @@ class _LocationSetterState extends State<LocationSetter>{
                                               Navigator.pushAndRemoveUntil(
                                                                     context,
                                                                     MaterialPageRoute(
-                                                                      builder: (BuildContext context) {
-                                                                        return const InstructorCourseHome();
-                                                                      },
-                                                                    ),
-                                                                    (route) => false
-                                                                  ,);
+                                    builder: (BuildContext context) {
+                                      return const InstructorCourseHome(
+                                        courseName: 'buffer',
+                                        courseNumb: 1,
+                                      );
+                                    },
+                                  ),
+                                  (route) => false,
+                                );
                                   }, child:  const Text('Confirm Code',
           style: TextStyle(color: Colors.white, fontSize: 25)),)]),
               ),],
