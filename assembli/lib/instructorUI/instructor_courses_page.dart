@@ -42,7 +42,6 @@ class _InstructorCoursesPageState extends State<InstructorCoursesPage> {
                     borderSide: const BorderSide(
                         color: Color.fromARGB(255, 179, 194, 168))),
               ),
-              /////////////////////SEARCH STILL IN PROGRESS
               onChanged: searchCourse,
             ),
           ),
@@ -57,12 +56,6 @@ class _InstructorCoursesPageState extends State<InstructorCoursesPage> {
                       itemBuilder: (context, index) {
                         final DocumentSnapshot documentSnapshot =
                             streamSnapshot.data!.docs[index];
-
-                        // allCourses.add(documentSnapshot);    //primarily for search functionality, not complete
-                        //adds all documents returned in the app list of type QueryDocumentSnapshot (subclass od DocumentSnapshot)
-                        //basically don't want to query the dDB again just to search each time
-
-                        //debugPrint(allCourses[index].toString());
                         return Card(
                           margin: const EdgeInsets.all(16),
                           child: ListTile(
