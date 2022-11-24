@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-import 'package:assembli/user.dart';
 import 'package:flutter/material.dart';
 import 'package:assembli/instructorUI/instructor_course_home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -38,9 +37,9 @@ class InstructorAnnouncement extends StatelessWidget {
             onPressed: () {
               announcement = announcementMessage.text;
               announce.add({
-                'cid': User.cid,
-                "cname": User.cname,
-                "crn": User.crn,
+                'cid': "4366",
+                "cname": "Capstone",
+                "crn": 32061,
                 "message": announcement
               });
               Navigator.pop(context);
