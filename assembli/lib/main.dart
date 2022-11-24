@@ -40,23 +40,26 @@ class MainPage extends StatelessWidget {
       builder: (context, snapshot) {                      //snapshot is the returned result of authStateChanges(),
         if(snapshot.hasData ){
 //testers
- /*         Control testrun = Control();
-          //test.setUser(snapshot.data!.uid);  
+        Control testrun = Control();
+         //test.setUser(snapshot.data!.uid);  
           AppUser testUser = 
-          /*AppUser(
+          AppUser(
     email: 'kimberly.fisher@ttu.edu',
     rnum: 87654321,
     type: 'student'
-  );*/
+  );
           
-          AppUser(
+  /*
+        AppUser(
     email: 'dana.allen@ttu.edu',
     rnum: 12345678,
     type: 'instructor'
   );
+  */
       
-          testrun.setSchedule(testUser);
-*/
+
+
+          testrun.getAttendanceRecords(testUser);
           return const InstructorLanding();     
         } else{
           return const Login();

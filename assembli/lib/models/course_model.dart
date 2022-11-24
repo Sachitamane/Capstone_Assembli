@@ -3,10 +3,14 @@
 //commented out
 //import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+
+//paste command for getting and building generated files
+//https://docs.flutter.dev/development/data-and-backend/json
 //https://www.youtube.com/watch?v=GiKOfdoD6R8&list=PL4tcFRTiQTj2BeFQ0e97C0ZQAi8l-HOM4&index=15
-part 'course_model.g.dart'; // <== applies when using other classes as variables w/in this class
+part 'course_model.g.dart'; 
  
 @JsonSerializable(explicitToJson: true)
 class Course{
@@ -16,11 +20,10 @@ class Course{
   final String cname;     //course name/identifier
   final int crn;          //crn
   final List<int> roster;
-  //look into data types for
-  //startTime and endTime
-  //fields/variables in database
-  //carry them over into contructor below 
-  //and 'fromJson' and 'toJson'
+  //final TimeOfDay startTime;        //JsonSerializable cannot take on TimeOfDay data type
+                                      //w/o some work, so notifications targeting a time period 
+                                      //may not be possible atm
+  //final TimeOfDay endTime;
 
   Course({
     required this.cid,
@@ -28,9 +31,9 @@ class Course{
     required this.crn,
     required this.rnum,
     required this.sect,
-    required this.roster
-    //startTime...
-    //endTime...
+    required this.roster,
+    //required this.startTime,
+    //required this.endTime
   });
 
   factory Course.fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);
@@ -39,7 +42,7 @@ class Course{
 
   @override
   String toString(){
-    return "Course info \n\ncid: $cid\ncname: $cname\ncrn: $crn\nrnum: $rnum\nsect: $sect\nroster: $roster";
+    return "Course info \n\ncid: $cid\ncname: $cname\ncrn: $crn\nrnum: $rnum\nsect: $sect\nroster: $roster\n"; //startTime: $startTime\nendTime: $endTime";
   }
 /*
   //static Course fromJson(...        <= alt function signature
