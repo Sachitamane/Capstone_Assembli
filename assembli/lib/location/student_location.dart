@@ -129,9 +129,10 @@ class _LocationFinderState extends State<LocationFinder> {
 
   // updates the present status of student in DB
   Future<void> updateUserPresent() async {
+    //hardcoded need to fix once data has been confirmed
     return attendance
         .doc("11111112")
-        .update({'oursePresence.${widget.courseName}': true});
+        .update({'CoursePresence.${widget.courseName}': true});
   }
 
   // checks classroom code to student code input
@@ -178,48 +179,52 @@ class _LocationFinderState extends State<LocationFinder> {
               Container(
                 height: 100,
                 width: 250,
+                child: Center(child: Text("Location Check", style: TextStyle(fontSize: 30,fontWeight: FontWeight.w900,fontStyle: FontStyle.italic)),)
               ),
               Container(
                   height: 100,
                   width: 250,
                   decoration: BoxDecoration(
                       border:
-                          Border.all(color: Color.fromARGB(255, 179, 194, 168)),
+                          Border.all(color: Color.fromARGB(255, 179, 194, 168),width: 7),
                       borderRadius: BorderRadius.circular(20)),
                   child: Center(
                     child: !_cancheck
                         ? Text('Proximity Check: Pending',
-                            style: TextStyle(fontSize: 18))
+                            style: TextStyle(fontSize: 15,fontWeight: FontWeight.w900))
                         : _valid
                             ? Text('Proximity Check: Valid',
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.green))
+                                style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900, color: const Color.fromARGB(255, 179, 194, 168)))
                             : Text('Proximity Check: Invalid',
                                 style:
-                                    TextStyle(fontSize: 18, color: Colors.red)),
+                                    TextStyle(fontSize: 20,fontWeight: FontWeight.w900, color: Colors.red)),
                   )),
               Padding(
                   padding: EdgeInsets.all(30),
                   child: _cancheck
                       ? Column(children: <Widget>[
                           const Text(
-                            'Classroom Location:',
-                            style: TextStyle(fontSize: 20),
+                            'Classroom Location',
+                            style: TextStyle(fontSize: 25,fontWeight: FontWeight.w900),
                           ),
                           Text(
                               'Latitude : ${classroomCoordinates.latitude.toString()}',
-                              style: TextStyle(fontSize: 20)),
+                               style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900, color: const Color.fromARGB(255, 179, 194, 168))),
                           Text(
                               'Longitude : ${classroomCoordinates.longitude.toString()}',
-                              style: TextStyle(fontSize: 20)),
-                          const Text('Your Location:',
-                              style: TextStyle(fontSize: 20)),
+                              style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900, color: const Color.fromARGB(255, 179, 194, 168))),
+                          const Text('Your Location',
+                              style: TextStyle(fontSize: 25,fontWeight: FontWeight.w900)),
                           Text('Latitude : $_latitude',
-                              style: TextStyle(fontSize: 20)),
+                              style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900, color: const Color.fromARGB(255, 179, 194, 168))),
                           Text('Longitude : $_longitude',
-                              style: TextStyle(fontSize: 20)),
-                          Text('Difference : $_difference',
-                              style: TextStyle(fontSize: 20)),
+                              style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900, color: const Color.fromARGB(255, 179, 194, 168))),
+                          Text('Difference',
+                              style: TextStyle(fontSize: 25,fontWeight: FontWeight.w900)),
+                          _valid ? 
+                          Text('$_difference', style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900, color: const Color.fromARGB(255, 179, 194, 168))):
+                          Text('$_difference', style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900, color: Colors.red))
+
                         ])
                       : Center(child: CircularProgressIndicator())),
               //if valid displays inputfield Widget to enter code and submit button to return to student course home
@@ -241,6 +246,9 @@ class _LocationFinderState extends State<LocationFinder> {
                               ),
                               Center(
                                   child: ElevatedButton(
+                                    style: const ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll<Color>(
+                                  Color.fromARGB(255, 179, 194, 168))),
                                 onPressed: () => {
                                   checkCode(classroomCode, myController.text)
                                       ? {
@@ -276,7 +284,7 @@ class _LocationFinderState extends State<LocationFinder> {
                                           barrierDismissible: false,
                                         )
                                 },
-                                child: Text("Submit Code"),
+                                child: Text("Submit Code",style: TextStyle(fontSize: 30)),
                               )),
                             ])
                           : SimpleTimer(

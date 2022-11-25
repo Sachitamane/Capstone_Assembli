@@ -30,7 +30,9 @@ class _LocationSetterState extends State<LocationSetter> {
   var _latitude = "";
   var _longitude = "";
   // geocoding of GPS Location
-  var _address = "";
+  List  _address = [];
+  // manipulated gecoding for aesthetic purposes
+  var _manipulated_address = "";
   // whether the button and info information can be displayed after GPS Pos for Instructor has been found
   bool _canConfirm = false;
   // whether the Instructor has confirmed location
@@ -63,7 +65,7 @@ class _LocationSetterState extends State<LocationSetter> {
     setState(() {
       _latitude = pos.latitude.toString();
       _longitude = pos.longitude.toString();
-      _address = pm[0].toString();
+      _address = pm[0].toString().split(',');
       _canConfirm = true;
     });
   }
@@ -122,38 +124,39 @@ class _LocationSetterState extends State<LocationSetter> {
   Future<void> updateCode(int code) async {
     return classroom.doc(widget.courseName).update({'code': code});
   }
+  
 
   @override
   Widget build(BuildContext context) {
     _updatePosition();
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 179, 194, 168),
+          title: Text('Assembli'),
+        ),
         resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
           child: Center(
               child: Column(
             children: <Widget>[
-              Container(height: 100, width: 250),
+              Container(height: 50, width: 250),
               Padding(
                 padding: EdgeInsets.all(30),
-                child: const Text('Classroom Location: ',
-                    style: TextStyle(fontSize: 20)),
+                child: const Text('Classroom Location ',
+                    style: TextStyle(fontSize: 30,fontWeight: FontWeight.w900,fontStyle: FontStyle.italic)),
               ),
               Padding(
                 padding: EdgeInsets.all(15),
                 child: !_canConfirm
                     ? Center(child: CircularProgressIndicator())
                     : Column(children: <Widget>[
-                        Text('Latitude $_latitude',
-                            style: TextStyle(fontSize: 20)),
-                        Text('Longitude $_longitude',
-                            style: TextStyle(fontSize: 20)),
+                        Text('Latitude: $_latitude',
+                            style: TextStyle(fontSize: 25,fontWeight: FontWeight.w900,color: Color.fromARGB(255, 179, 194, 168))),
+                        Text('Longitude: $_longitude',
+                            style: TextStyle(fontSize: 25,fontWeight: FontWeight.w900, color: Color.fromARGB(255, 179, 194, 168))),
+                        Container(height: 50, width: 250)
+,                        Text(_address[0] + "\n" + _address[1] + "\n" + _address[6] + "\n" + _address[5] + "\n" + _address[3] ,style: TextStyle(fontSize: 15,fontWeight: FontWeight.w900,))
                       ]),
-              ),
-              Padding(
-                padding: EdgeInsets.all(30),
-                child: Column(children: <Widget>[
-                  Text(_address, style: TextStyle(fontSize: 15)),
-                ]),
               ),
               Padding(
                 padding: EdgeInsets.all(20),
@@ -162,18 +165,26 @@ class _LocationSetterState extends State<LocationSetter> {
                     : !_confirmedLocation
                         ? Column(children: <Widget>[
                             ElevatedButton(
-                                child: Text('Confirm Classroom Location'),
+                                style: const ButtonStyle(
+                                  backgroundColor: MaterialStatePropertyAll<Color>(
+                                Color.fromARGB(255, 179, 194, 168))),
                                 onPressed: () {
                                   _instructorCodeActivation();
-                                }),
+                                },
+                                child: Text('Confirm Classroom Location', style: TextStyle(fontSize: 19)),
+                                ),
                           ])
                         : Column(children: <Widget>[
                             TextField(
                                 controller: myController,
                                 decoration: InputDecoration(
                                     border: OutlineInputBorder(),
-                                    hintText: 'Input Code Login')),
+                                    hintText: 'Input Code Login'),
+                              ),
                             ElevatedButton(
+                              style: const ButtonStyle(
+                                  backgroundColor: MaterialStatePropertyAll<Color>(
+                                Color.fromARGB(255, 179, 194, 168))),
                               onPressed: () => [
                                 updateCode(int.parse(myController.text)),
                                 Navigator.pushAndRemoveUntil(
