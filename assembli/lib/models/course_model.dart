@@ -12,7 +12,7 @@ import 'package:json_annotation/json_annotation.dart';
 //https://www.youtube.com/watch?v=GiKOfdoD6R8&list=PL4tcFRTiQTj2BeFQ0e97C0ZQAi8l-HOM4&index=15
 part 'course_model.g.dart'; 
  
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable (explicitToJson: true)
 class Course{
   final int rnum;         //teacher rnum
   final int cid;          //courseid number "4366, 3354, ..."

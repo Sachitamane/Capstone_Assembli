@@ -7,7 +7,7 @@ class AppUser {
   String? type;
   String? fname;
   String? lname;
-  List<Course>? schedule;
+  List<Course>? schedule;   ///////////////////////// this is set by the control class upon signin
   //List<course_model.dart>? schedule
   //attendance record??? <=== maybe create this field within the course model
 
@@ -16,7 +16,10 @@ class AppUser {
     {
       this.email,
       this.rnum,
-      this.type
+      this.type,
+      this.fname,
+      this.lname,
+      this.schedule         ///////////////////////// this is set by the control class upon signin
     }
   );
 
@@ -25,12 +28,16 @@ class AppUser {
     email: json['email'],
     rnum: json['rnum'],
     type: json['type'],
+    fname: json['fname'],
+    lname: json['lname']
   );
   //our application doesn't do writing but we'll have this func anyways
   Map<String, dynamic> toJson() => {
     'email': email,
     'rnum': rnum,
-    'type': type
+    'type': type,
+    'fname': fname,
+    'lname': lname
   };
 
   @override

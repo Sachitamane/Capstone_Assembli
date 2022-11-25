@@ -4,6 +4,10 @@ import 'package:assembli/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+///////////////////////////////////////////////////////////////////
+import 'package:assembli/globals.dart' as globals;
+
+
 
 class Control {
   final FirebaseFirestore _instance= FirebaseFirestore.instance;
@@ -25,7 +29,7 @@ class Control {
     this.user,
   });
   
-  ////////METHODS-------------------------------------------------
+  ////////////////----METHODS-------------------------------------------------
 
   //sets AppUser 'user' of this class
   Future<void> setUser(String uid) async {
@@ -35,27 +39,12 @@ class Control {
     var data = docsnap.data() as Map<String, dynamic>;
     AppUser result = AppUser.fromJson(data);
     
+   // globals.runningUser = result;
+    
     user = result; 
     //debugPrint('AppUser set');   
   }
   
-  
-  //get the list of courses from db    
-  Future<void> getCourses() async{
-    CollectionReference courses = _instance.collection('courses<test>');
-    QuerySnapshot snapshot = await courses.get();     //get list of documents in course collection
-
-    var documents = snapshot.docs;
-    //for each document in the list of documents via 'documents' var
-    documents.forEach((DocumentSnapshot element) {
-      var tt = element.data() as Map<String,dynamic>;       //turn document into a map
-      Course buffer = Course.fromJson(tt);
-      availCourses.add(buffer);
-    });
-    debugPrint('getCourses results');
-    debugPrint(availCourses.toString());
-  }
-
   //set schedule variable of AppUser 'user' (see user_model.dart for 'user' variables)
   //courses will come from the list of courses (course objects) 'availCourses' variable set in getCourses method
   void setSchedule(AppUser user) async{  //for appUser
@@ -87,6 +76,23 @@ class Control {
       user.schedule = availCourses;    
     }    
   }
+  
+  //get the list of courses from db    
+  Future<void> getCourses() async{
+    CollectionReference courses = _instance.collection('courses<test>');
+    QuerySnapshot snapshot = await courses.get();     //get list of documents in course collection
+
+    var documents = snapshot.docs;
+    //for each document in the list of documents via 'documents' var
+    documents.forEach((DocumentSnapshot element) {
+      var tt = element.data() as Map<String,dynamic>;       //turn document into a map
+      Course buffer = Course.fromJson(tt);
+      availCourses.add(buffer);
+    });
+    
+    //debugPrint('getCourses results');
+    //debugPrint(availCourses.toString());
+  }
 
   Future<void> getAttendanceRecords(AppUser user) async{
     //limiting the request to records only pertaining to the current user, thus the user is needed
@@ -100,33 +106,27 @@ class Control {
       Attendance buffer = Attendance.fromJson(tt);
       attend.add(buffer);
     });
-    debugPrint('attendance results');
-    debugPrint(attend.toString());
+    //debugPrint('attendance results');
+    //debugPrint(attend.toString());
     
   }
-}
 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-/*//////////////////////////////////////////////////////////////////////////
-  Future<bool> setProfile() async{
-    bool achieved = false;
-   // await getUser(authenticatedUser!.uid);
-
-    return achieved;
+  Future<bool> setProfile(User auth)async{
+    bool temp =false;
+    await setUser(authUser!.uid);
+    await getCourses();
+    setSchedule(user!);
+    //await getAttendanceRecords(user!);
+    globals.runningUser = user;
+    if(globals.runningUser != null){
+      temp = true;
+    }
+    
+    return temp;
   }
-*/
+
+  
+}
 
 /*
   Future<String> getType(String uid) async {
