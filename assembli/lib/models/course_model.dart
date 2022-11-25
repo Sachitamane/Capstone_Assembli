@@ -1,13 +1,8 @@
-//utilized for searchCourse function in student_courses_page.dart 
-//example file, not in-use
-//commented out
-//import 'package:cloud_firestore/cloud_firestore.dart';
-
-import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-
-//paste command for getting and building generated files
+//command for getting and building generated files 
+//enter in terminal :  " flutter packages pub run build_runner build "
+//see youtube vid for clearer instructions
 //https://docs.flutter.dev/development/data-and-backend/json
 //https://www.youtube.com/watch?v=GiKOfdoD6R8&list=PL4tcFRTiQTj2BeFQ0e97C0ZQAi8l-HOM4&index=15
 part 'course_model.g.dart'; 

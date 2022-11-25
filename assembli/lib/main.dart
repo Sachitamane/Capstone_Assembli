@@ -1,8 +1,4 @@
-import 'package:assembli/instructorUI/instructor_landing.dart';
 import 'package:assembli/login.dart';
-import 'package:assembli/models/user_model.dart';
-import 'package:assembli/services/dbservice.dart';
-import 'package:assembli/studentUI/student_landing.dart';
 import 'package:assembli/user_route.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';

@@ -6,6 +6,10 @@ import 'package:assembli/studentUI/student_course_home.dart';
 import 'package:simple_timer/simple_timer.dart';
 import 'package:assembli/instructorUI/instructor_course_home.dart';
 
+//temp import,
+import 'package:assembli/globals.dart' as globals;
+import 'package:assembli/models/course_model.dart';
+//temp course on Ln
 
 /*
     For Students Log Attendance
@@ -19,7 +23,8 @@ class LocationFinder extends StatefulWidget {
   State<LocationFinder> createState() => _LocationFinderState();
 }
 
-class _LocationFinderState extends State<LocationFinder> {  
+class _LocationFinderState extends State<LocationFinder> {
+  Course dupe = Course(cid: 4444, cname: 'dupe', crn: 111111, rnum: 11111111, sect: 1, roster: [1,2,3,4]);
   //for holding gps location of student
   var _latitude = "";
   var _longitude = "";
@@ -169,13 +174,13 @@ class _LocationFinderState extends State<LocationFinder> {
                                                               context,
                                                               MaterialPageRoute(
                                                                 builder: (BuildContext context) {
-                                                                  return const StudentCourseHome(courseName: 'buffer', courseNumb: 1111);
+                                                                  return StudentCourseHome(course: dupe );//(courseName: 'buffer', courseNumb: 1111);
                                                                 },
                                                               ),
                                                               (route) => false,
                                                             );}), ]):
                                                             SimpleTimer(status: TimerStatus.start,duration: Duration(seconds: 10),onEnd: () => Navigator.pushAndRemoveUntil(
-                                                            context,MaterialPageRoute(builder: (BuildContext context) {return const StudentCourseHome(courseName: 'buffer', courseNumb: 1111);},),(route) => false,), ),
+                                                            context,MaterialPageRoute(builder: (BuildContext context) {return  StudentCourseHome(course: dupe);/*(courseName: 'buffer', courseNumb: 1111);*/},),(route) => false,), ),
                                               ),
                                     ),
                   ],
