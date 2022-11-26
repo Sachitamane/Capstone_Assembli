@@ -3,10 +3,6 @@ import 'package:assembli/location.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class InstructorCourseHome extends StatefulWidget {
-  //const InstructorCourseHome(
-  // {Key? key, required courseNumb, required courseName})
-  //: super(key: key);
-
   final String courseName;
   final int courseNumb;
 
@@ -33,6 +29,7 @@ class _InstructorCourseHome extends State<InstructorCourseHome> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
+              //box witht the selected course name displayed
               const SizedBox(height: 35),
               Padding(
                 padding: const EdgeInsets.only(
@@ -45,6 +42,8 @@ class _InstructorCourseHome extends State<InstructorCourseHome> {
                   child: Text(widget.courseName),
                 ),
               ),
+
+              //divider
               const Padding(
                 padding:
                     EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
@@ -54,6 +53,8 @@ class _InstructorCourseHome extends State<InstructorCourseHome> {
                   color: Color.fromARGB(255, 243, 113, 113),
                 ),
               ),
+
+              //'open attendance' button
               Padding(
                 padding: const EdgeInsets.only(
                     top: 10, bottom: 20, left: 10, right: 10),
@@ -80,6 +81,8 @@ class _InstructorCourseHome extends State<InstructorCourseHome> {
                   ),
                 ),
               ),
+
+              //attendance score display/ button to show roster******in progress
               Padding(
                 padding: const EdgeInsets.only(
                     top: 10, bottom: 20, left: 10, right: 10),
@@ -91,21 +94,15 @@ class _InstructorCourseHome extends State<InstructorCourseHome> {
                         backgroundColor: MaterialStatePropertyAll<Color>(
                             Color.fromARGB(255, 255, 255, 255))),
                     onPressed: () {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return const LocationSetter();
-                          },
-                        ),
-                        (route) => false,
-                      );
+                      ///***in progress
                     },
                     child: const Text('Attendance Score',
                         style: TextStyle(color: Colors.white, fontSize: 25)),
                   ),
                 ),
               ),
+
+              //divider
               const Padding(
                 padding:
                     EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
@@ -115,6 +112,8 @@ class _InstructorCourseHome extends State<InstructorCourseHome> {
                   color: Color.fromARGB(255, 243, 113, 113),
                 ),
               ),
+
+              //make announcement button
               Padding(
                 padding: const EdgeInsets.only(
                     top: 10, bottom: 10, left: 10, right: 10),
@@ -126,13 +125,15 @@ class _InstructorCourseHome extends State<InstructorCourseHome> {
                         backgroundColor: MaterialStatePropertyAll<Color>(
                             Color.fromARGB(255, 179, 194, 168))),
                     onPressed: () {
-                      //add routing to the page here
+                      ///////add the on pressed function here
                     },
                     child: const Text('Make Announcement',
                         style: TextStyle(color: Colors.white, fontSize: 25)),
                   ),
                 ),
               ),
+
+              //view analytics button
               Padding(
                 padding: const EdgeInsets.only(
                     top: 10, bottom: 10, left: 10, right: 10),
@@ -144,7 +145,7 @@ class _InstructorCourseHome extends State<InstructorCourseHome> {
                         backgroundColor: MaterialStatePropertyAll<Color>(
                             Color.fromARGB(255, 179, 194, 168))),
                     onPressed: () {
-                      //add routing to other page here
+                      ////add routing to other page here
                     },
                     child: const Text('View Analytics',
                         style: TextStyle(color: Colors.white, fontSize: 25)),

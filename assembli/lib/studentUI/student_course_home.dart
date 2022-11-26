@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:assembli/location.dart';
 
 class StudentCourseHome extends StatefulWidget {
-  //const StudentCourseHome({Key? key, required courseNumb, required courseName})
-  //  : super(key: key);
-
   final String courseName;
   final int courseNumb;
 
@@ -31,6 +28,7 @@ class _StudentCourseHome extends State<StudentCourseHome> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
+              //sized box to display the selected course
               const SizedBox(height: 35),
               Padding(
                 padding: const EdgeInsets.only(
@@ -43,6 +41,8 @@ class _StudentCourseHome extends State<StudentCourseHome> {
                   child: Text(widget.courseName),
                 ),
               ),
+
+              //divider
               const Padding(
                 padding:
                     EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
@@ -52,6 +52,8 @@ class _StudentCourseHome extends State<StudentCourseHome> {
                   color: Color.fromARGB(255, 243, 113, 113),
                 ),
               ),
+
+              //log my attendance button
               Padding(
                 padding: const EdgeInsets.only(
                     top: 10, bottom: 20, left: 10, right: 10),
@@ -67,7 +69,7 @@ class _StudentCourseHome extends State<StudentCourseHome> {
                         context,
                         MaterialPageRoute(
                           builder: (BuildContext context) {
-                            return const LocationSetter();
+                            return const LocationFinder();
                           },
                         ),
                         (route) => false,
@@ -78,6 +80,8 @@ class _StudentCourseHome extends State<StudentCourseHome> {
                   ),
                 ),
               ),
+
+              //attendance score display
               Padding(
                 padding: const EdgeInsets.only(
                     top: 10, bottom: 20, left: 10, right: 10),
@@ -98,6 +102,8 @@ class _StudentCourseHome extends State<StudentCourseHome> {
                   ),
                 ),
               ),
+
+              //divider
               const Padding(
                 padding:
                     EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
@@ -107,6 +113,8 @@ class _StudentCourseHome extends State<StudentCourseHome> {
                   color: Color.fromARGB(255, 243, 113, 113),
                 ),
               ),
+
+              //request excused absence button
               Padding(
                 padding: const EdgeInsets.only(
                     top: 10, bottom: 10, left: 10, right: 10),
@@ -132,39 +140,3 @@ class _StudentCourseHome extends State<StudentCourseHome> {
     );
   }
 }
-
-
-
-
-
-
-
-// class StudentCourseHome extends StatelessWidget {
-//   const StudentCourseHome(
-//       {Key? key, required String courseName, required int courseNumb})
-//       : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     // ignore: prefer_const_constructors
-//     return Center(
-//         child: ElevatedButton(
-//       style: const ButtonStyle(
-//           backgroundColor: MaterialStatePropertyAll<Color>(
-//               Color.fromARGB(255, 179, 194, 168))),
-//       onPressed: () {
-//         Navigator.pushAndRemoveUntil(
-//           context,
-//           MaterialPageRoute(
-//             builder: (BuildContext context) {
-//               return const LocationFinder();
-//             },
-//           ),
-//           (route) => false,
-//         );
-//       },
-//       child: const Text('Log my Attendance',
-//           style: TextStyle(color: Colors.white, fontSize: 25)),
-//     ));
-//   }
-// }
