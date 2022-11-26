@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:assembli/location.dart';
+import 'package:assembli/studentUI/student_attendance_score.dart';
 
 class StudentCourseHome extends StatefulWidget {
   final String courseName;
@@ -94,6 +95,11 @@ class _StudentCourseHome extends State<StudentCourseHome> {
                             Color.fromARGB(255, 255, 255, 255))),
                     onPressed: () {
                       ///////add on pressed function here
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return const StudentAttendanceScore();
+                        },
+                      ));
                     },
                     child: const Text('Attendance Score',
                         style: TextStyle(
