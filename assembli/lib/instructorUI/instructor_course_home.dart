@@ -1,6 +1,7 @@
+import 'package:assembli/instructorUI/instructor_attendance_score.dart';
 import 'package:flutter/material.dart';
 import 'package:assembli/location.dart';
-import 'package:assembli/instructorUI/instructor_announcement.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
 
 class InstructorCourseHome extends StatefulWidget {
   final String courseName;
@@ -29,7 +30,7 @@ class _InstructorCourseHome extends State<InstructorCourseHome> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              //box witht the selected course name displayed
+              //box with the selected course name displayed
               const SizedBox(height: 35),
               Padding(
                 padding: const EdgeInsets.only(
@@ -49,7 +50,7 @@ class _InstructorCourseHome extends State<InstructorCourseHome> {
                     EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
                 child: Divider(
                   height: 50,
-                  thickness: 5,
+                  thickness: 2,
                   color: Color.fromARGB(255, 243, 113, 113),
                 ),
               ),
@@ -95,6 +96,11 @@ class _InstructorCourseHome extends State<InstructorCourseHome> {
                             Color.fromARGB(255, 255, 255, 255))),
                     onPressed: () {
                       ///***in progress
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return AttendanceScore();
+                        },
+                      ));
                     },
                     child: const Text('Attendance Score',
                         style: TextStyle(color: Colors.white, fontSize: 25)),
@@ -108,7 +114,7 @@ class _InstructorCourseHome extends State<InstructorCourseHome> {
                     EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
                 child: Divider(
                   height: 50,
-                  thickness: 5,
+                  thickness: 2,
                   color: Color.fromARGB(255, 243, 113, 113),
                 ),
               ),
