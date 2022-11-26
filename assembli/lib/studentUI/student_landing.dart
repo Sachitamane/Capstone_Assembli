@@ -12,6 +12,8 @@ class StudentLanding extends StatefulWidget {
   State<StudentLanding> createState() => _StudentLandingState();
 }
 
+//https://www.youtube.com/watch?v=qj7jcuU2Z10&t=183s persistent nav bar explained
+
 //https://www.youtube.com/watch?v=P3x-JuA23SE
 //proper routing with keeping the navigation bar there persistent
 

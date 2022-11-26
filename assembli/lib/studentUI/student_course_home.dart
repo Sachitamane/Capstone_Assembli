@@ -1,6 +1,7 @@
 import 'package:assembli/location.dart';
+import 'package:assembli/models/attendance_model.dart';
 import 'package:assembli/models/course_model.dart';
-import 'package:assembli/studentUI/course_attendance.dart';
+import 'package:assembli/studentUI/student_course_attendance.dart';
 import 'package:assembli/studentUI/student_create_request.dart';
 import 'package:flutter/material.dart';
 //import 'package:assembli/location.dart';
@@ -8,16 +9,12 @@ import 'package:assembli/globals.dart' as globals;
 
 
 class StudentCourseHome extends StatefulWidget {
-  
-  //final String courseName;
-  //final int courseNumb;
   final Course course;
 
   const StudentCourseHome({
     Key? key,
     required this.course,
-    //required this.courseName,
-    //required this.courseNumb,
+
   }) : super(key: key);
 
   @override
@@ -44,10 +41,13 @@ class _StudentCourseHomeState extends State<StudentCourseHome> {
                 padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
                 margin: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: Colors.blue),
+                  border: Border.all(width: 1, color: const Color.fromARGB(255, 179, 194, 168)),
                   borderRadius: const BorderRadius.all( Radius.circular(8)),
                 ),
-                child: Text('${globals.runningUser!.schedule!.length}')
+                child: Text('${globals.runningUser!.attends!.where((element) => element.present == true)
+                                                   .where((element) => element.crn == widget.course.crn)
+                                                   .length} / ${globals.runningUser!.attends!
+                                                   .where((element) => element.crn == widget.course.crn).length}')
               ),
             ),
 
@@ -57,7 +57,7 @@ class _StudentCourseHomeState extends State<StudentCourseHome> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const CourseAttendance()),
+                      builder: (context) =>  StudentCourseAttendance( attenList: globals.runningUser!.attends!.where((element) => element.crn == widget.course.crn).toList(),)),
                   );
                 },
                 child: const Text('Your Attendance Score')

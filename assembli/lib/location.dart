@@ -24,6 +24,7 @@ class LocationFinder extends StatefulWidget {
 }
 
 class _LocationFinderState extends State<LocationFinder> {
+    ////////////////////////bri edit
   Course dupe = Course(cid: 4444, cname: 'dupe', crn: 111111, rnum: 11111111, sect: 1, roster: [1,2,3,4]);
   //for holding gps location of student
   var _latitude = "";
@@ -174,12 +175,14 @@ class _LocationFinderState extends State<LocationFinder> {
                                                               context,
                                                               MaterialPageRoute(
                                                                 builder: (BuildContext context) {
+                                                                    ////////////////////////bri edit
                                                                   return StudentCourseHome(course: dupe );//(courseName: 'buffer', courseNumb: 1111);
                                                                 },
                                                               ),
                                                               (route) => false,
                                                             );}), ]):
                                                             SimpleTimer(status: TimerStatus.start,duration: Duration(seconds: 10),onEnd: () => Navigator.pushAndRemoveUntil(
+                                                                ////////////////////////bri edit
                                                             context,MaterialPageRoute(builder: (BuildContext context) {return  StudentCourseHome(course: dupe);/*(courseName: 'buffer', courseNumb: 1111);*/},),(route) => false,), ),
                                               ),
                                     ),
@@ -204,6 +207,9 @@ class LocationSetter extends StatefulWidget {
 
 
 class _LocationSetterState extends State<LocationSetter>{
+  ////////////////////////bri edit
+    Course dupe = Course(cid: 4444, cname: 'dupe', crn: 111111, rnum: 11111111, sect: 1, roster: [1,2,3,4]);
+
 
   //for holding gps location of Instructor
   var _latitude = "";
@@ -334,7 +340,8 @@ class _LocationSetterState extends State<LocationSetter>{
                                                                     context,
                                                                     MaterialPageRoute(
                                                                       builder: (BuildContext context) {
-                                                                        return const InstructorCourseHome();
+                                                                          ////////////////////////bri edit
+                                                                        return InstructorCourseHome(course: dupe );
                                                                       },
                                                                     ),
                                                                     (route) => false

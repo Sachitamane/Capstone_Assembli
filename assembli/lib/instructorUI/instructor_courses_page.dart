@@ -1,23 +1,30 @@
+import 'package:assembli/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:assembli/instructorUI/instructor_course_home.dart';
+import 'package:assembli/globals.dart' as globals;
 
-class InstructorCoursesPage extends StatelessWidget {
+
+
+class InstructorCoursesPage extends StatefulWidget {
   const InstructorCoursesPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        title: "ListView.builder",
-        theme: ThemeData(primarySwatch: Colors.green),
-        debugShowCheckedModeBanner: false,
-        // home : new ListViewBuilder(),  NO Need To Use Unnecessary New Keyword
-        home: const ListViewBuilder());
-  }
+  State<InstructorCoursesPage> createState() => _InstructorCoursesPageState();
 }
 
-class ListViewBuilder extends StatelessWidget {
-  const ListViewBuilder({Key? key}) : super(key: key);
+class _InstructorCoursesPageState extends State<InstructorCoursesPage> {
+  
+  //optional access to globals
+  final AppUser userClone = globals.runningUser!;
 
+  /////////////////////////////////////////////////////
+  @override
+  void initState(){
+    super.initState();
+  }
+  //////////////////////////////////////////////////////
+  //old ui
+  /*
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,4 +49,41 @@ class ListViewBuilder extends StatelessWidget {
           }),
     );
   }
+  */
+  @override
+  Widget build(BuildContext context) => Scaffold(
+      body: Column(
+      children: <Widget>[
+        //list of courses pertaining to current appuser
+        Expanded(
+          child: ListView.builder(
+            itemCount: globals.runningUser!.schedule!.length,
+            itemBuilder:(context, index){
+              return Card(
+                margin:  const EdgeInsets.all(16),
+                child: ListTile(
+                  title: Text(globals.runningUser!.schedule![index].cname.toString()),
+                  subtitle: Text(globals.runningUser!.schedule![index].cid.toString()),
+                  //title: Text(userClone.schedule![index].cname.toString()),
+                  //subtitle: Text(userClone.schedule![index].cid.toString()),
+                  leading: const Icon(Icons.account_balance_wallet_outlined),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => InstructorCourseHome(
+                          //course: userClone.schedule![index]
+                          course: globals.runningUser!.schedule![index]
+                        )),
+                      );
+                  }
+                ),
+              );
+            }
+          )
+        )
+      ]
+    ),
+  );
 }
+
