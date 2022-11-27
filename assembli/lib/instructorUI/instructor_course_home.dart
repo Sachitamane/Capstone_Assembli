@@ -37,7 +37,7 @@ class _InstructorCourseHome extends State<InstructorCourseHome> {
                     top: 30, bottom: 10, left: 5, right: 10),
                 child: DefaultTextStyle(
                   style: const TextStyle(
-                      color: Color.fromARGB(255, 6, 6, 6),
+                      color: Color.fromARGB(255, 123, 123, 123),
                       fontSize: 23,
                       fontStyle: FontStyle.italic),
                   child: Text(widget.courseName),

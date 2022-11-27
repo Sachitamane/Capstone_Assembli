@@ -57,7 +57,7 @@ class _StudentCourseHome extends State<StudentCourseHome> {
               //log my attendance button
               Padding(
                 padding: const EdgeInsets.only(
-                    top: 10, bottom: 20, left: 10, right: 10),
+                    top: 10, bottom: 30, left: 40, right: 40),
                 child: SizedBox(
                   width: 400,
                   height: 45,
@@ -135,7 +135,10 @@ class _StudentCourseHome extends State<StudentCourseHome> {
                       /////add on pressed function here
                     },
                     child: const Text('Request Excused Absence',
-                        style: TextStyle(color: Colors.white, fontSize: 20)),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        )),
                   ),
                 ),
               )
