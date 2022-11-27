@@ -1,6 +1,7 @@
 //manual model class, not serializable b/c control sets instances, not firestore directly
 import 'package:assembli/models/attendance_model.dart';
 import 'package:assembli/models/course_model.dart';
+import 'package:assembli/models/requests_model.dart';
 
 class AppUser {
   String? email;                ///////////////////////// this is set by the db upon signin
@@ -10,7 +11,7 @@ class AppUser {
   String? lname;                ///////////////////////// this is set by the db upon signin
   List<Course>? schedule;       ///////////////////////// this is set by the control class upon signin
   List<Attendance>? attends;    ///////////////////////// this is set by the control class upon signin
-  
+  List<Request>? requests;
 
 
   AppUser(

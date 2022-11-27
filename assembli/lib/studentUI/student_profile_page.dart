@@ -5,6 +5,8 @@ class StudentProfilePage extends StatelessWidget {
   const StudentProfilePage({Key? key}) : super(key: key);
 
   // Log out button, redirects to login.dart
+  //login also needs to close the firebase instance
+      //might link it to the starter instance on main page
   @override
   Widget build(BuildContext context) {
     return Center(

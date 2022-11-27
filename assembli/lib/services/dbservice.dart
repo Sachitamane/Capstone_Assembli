@@ -1,13 +1,12 @@
 import 'package:assembli/models/attendance_model.dart';
 import 'package:assembli/models/course_model.dart';
+import 'package:assembli/models/requests_model.dart';
 import 'package:assembli/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 ///////////////////////////////////////////////////////////////////
 import 'package:assembli/globals.dart' as globals;
-
-
 
 class Control {
   final FirebaseFirestore _instance= FirebaseFirestore.instance;
@@ -16,6 +15,7 @@ class Control {
   AppUser? user;
   List<Course> availCourses = [];     //all courses in the database in a list of course objects
   List<Attendance> attend = [];
+  List<Request> reqs = [];
   //used for testing
   /*
   AppUser test = AppUser(
@@ -30,6 +30,10 @@ class Control {
   });
   
   ////////////////----METHODS-------------------------------------------------
+
+  ///get methods query the database for overall list
+  ///set method filter lists obtained by the get methods
+  ///these methods can be used a refresh pairs within UI files
 
   //sets AppUser 'user' of this class
   Future<void> setUser(String uid) async {
@@ -58,7 +62,6 @@ class Control {
       Course buffer = Course.fromJson(tt);
       availCourses.add(buffer);
     });
-    
     //debugPrint('getCourses results');
     //debugPrint(availCourses.toString());
   }
@@ -79,8 +82,6 @@ class Control {
       user.schedule = availCourses;    
     }    
   }
-  
-
 
   //getting all attendance records
   Future<void> getAttendanceRecords() async{
@@ -114,12 +115,51 @@ class Control {
       user.attends = attend;    
     }
 
-
-    user.attends = attend;
+    //user.attends = attend;
     //debugPrint('attendance results');
     //debugPrint(attend.toString());
     
   }
+
+  //getting all request records ; limited to instructor users
+
+  Future<void> getRequests() async{
+    CollectionReference requests = _instance.collection('requests<test>');
+    QuerySnapshot snapshot = await requests.get();
+
+    var documents = snapshot.docs;
+
+    documents.forEach((DocumentSnapshot element) {
+      var tt = element.data() as Map<String,dynamic>;
+      Request buffer = Request.fromJson(tt);
+      reqs.add(buffer);
+    }
+  );
+  }
+
+  //when instructor accepts, send a temp announcement to student user, somehow attach announcement to student rnum
+  setRequests(AppUser user) {
+    
+    if (user.type!.compareTo('instructor') == 0){
+      reqs.retainWhere((request) => user.schedule!.any((course) => course.crn == request.crn));
+      user.requests = reqs;
+    }
+
+    //optional logic block for notifications to students about status change
+    /*
+    if (user.type!.compareTo('student') == 0){
+      reqs.retainWhere(.....);
+      user.requests = reqs;
+    }
+    */
+    //debugPrint('reqs after setting ------------');
+    //debugPrint(reqs.toString());
+    
+  //no need to depict rules for an student, students have no where to see a list of requests on their UI
+  //status changes of requests will be depicted as announcements for them
+  }
+
+
 
   Future<bool> setProfile(User auth)async{
     bool temp =false;
@@ -128,10 +168,14 @@ class Control {
     setSchedule(user!);
     await getAttendanceRecords();
     setAttendance(user!);
+    await getRequests();
+    setRequests(user!);
+
     globals.runningUser = user;
     if(globals.runningUser != null){
       temp = true;
     }
+    
 
     //debugPrint('-----------------------attendance record-----------------------');
     //debugPrint(globals.runningUser!.attends.toString());

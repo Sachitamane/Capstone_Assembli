@@ -44,10 +44,10 @@ class _InstructorCourseHomeState extends State<InstructorCourseHome> {
                       border: Border.all(width: 1, color: const Color.fromARGB(255, 179, 194, 168)),
                       borderRadius: const BorderRadius.all( Radius.circular(8)),
                     ),
-                    ///////////////////////////////START HERE
+                    //attendance ratio 
                     child: Text('${globals.runningUser!.attends!.where((element) => element.present == true)
                                                       .where((element) => element.crn == widget.course.crn)
-                                                      .length} / ${globals.runningUser!.schedule!
+                                                      .length} / ${globals.runningUser!.attends!
                                                       .where((element) => element.crn == widget.course.crn).length}')
                   ),
                 ),
@@ -68,40 +68,51 @@ class _InstructorCourseHomeState extends State<InstructorCourseHome> {
               ]
             )
           ),
-          ElevatedButton(
-            style: const ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll<Color>(
-                Color.fromARGB(255, 179, 194, 168))),
-                onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                    context, MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return const LocationFinder();
-                      },
-                    ),  (route) => false,
-                  );
-                },
-              child: const Text('Log my Attendance',
+      //'log my attendance' button
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: ElevatedButton(
+              style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll<Color>(
+                  Color.fromARGB(255, 179, 194, 168))),
+                  onPressed: () {
+                    Navigator.pushAndRemoveUntil(
+                      context, MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return const LocationFinder();
+                        },
+                      ),  (route) => false,
+                    );
+                  },
+                child: const Text('Log my Attendance',
+                    style: TextStyle(color: Colors.white, fontSize: 25)),
+              ),
+          ),
+      //////////////////////////////////////////////////////////////////START HERE
+      // "make announcement" button
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: ElevatedButton(
+              style: const ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll<Color>(
+                      Color.fromARGB(255, 179, 194, 168))),
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return const InstructorCreateAnnouncements();
+                    },
+                  ),
+                  (route) => false,
+                );
+              },
+              child: const Text('Make Announcement',
                   style: TextStyle(color: Colors.white, fontSize: 25)),
             ),
-          ElevatedButton(
-            style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll<Color>(
-                    Color.fromARGB(255, 179, 194, 168))),
-            onPressed: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return const InstructorCreateAnnouncements();
-                  },
-                ),
-                (route) => false,
-              );
-            },
-          child: const Text('Request Excused Absence',
-              style: TextStyle(color: Colors.white, fontSize: 25)),
-        ),
+          ),
+      //////////////////////////////////////////////////////////////////CREATE STUDENT ANALYTICS BUTTON
+    // "open attendance" button
           Center(
             child: ElevatedButton(
               style: const ButtonStyle(
@@ -123,6 +134,8 @@ class _InstructorCourseHomeState extends State<InstructorCourseHome> {
                   style: TextStyle(color: Colors.white, fontSize: 25)),
             )
           )
+
+        //end of widget list
         ]
       )
     );
