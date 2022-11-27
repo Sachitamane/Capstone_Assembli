@@ -54,13 +54,16 @@ class _StudentCoursesPageState extends State<StudentCoursesPage> {
                         final DocumentSnapshot documentSnapshot =
                             streamSnapshot.data!.docs[index];
                         return Card(
-                          margin: const EdgeInsets.all(16),
+                          margin: const EdgeInsets.all(10),
                           child: ListTile(
                               title: Text(documentSnapshot['cname']),
                               subtitle:
                                   Text(documentSnapshot['cid'].toString()),
-                              leading: const Icon(
-                                  Icons.account_balance_wallet_outlined),
+                              tileColor: Color.fromARGB(255, 241, 241, 241),
+                              //leading: const Icon(
+                              //Icons.account_balance_wallet_outlined),
+                              trailing:
+                                  const Icon(Icons.arrow_forward_ios_rounded),
                               onTap: () {
                                 Navigator.push(
                                   context,
