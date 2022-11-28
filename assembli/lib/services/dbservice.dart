@@ -16,14 +16,7 @@ class Control {
   List<Course> availCourses = [];     //all courses in the database in a list of course objects
   List<Attendance> attend = [];
   List<Request> reqs = [];
-  //used for testing
-  /*
-  AppUser test = AppUser(
-    email: 'kimberly.fisher@ttu.edu',
-    rnum: 87654321,
-    type: 'student'
-  );
-*/
+
   Control({
     this.authUser,
     this.user,
@@ -48,7 +41,6 @@ class Control {
     user = result; 
     //debugPrint('AppUser set');   
   }
-  
   
   //get the list of courses from db    
   Future<void> getCourses() async{
@@ -115,14 +107,11 @@ class Control {
       user.attends = attend;    
     }
 
-    //user.attends = attend;
-    //debugPrint('attendance results');
-    //debugPrint(attend.toString());
-    
+    //debugPrint('Attends list for ${user.type} #${user.rnum}>>>>>>>>>>>>>>>>>>>>>>');
+    //debugPrint(user.attends.toString());
   }
 
   //getting all request records ; limited to instructor users
-
   Future<void> getRequests() async{
     CollectionReference requests = _instance.collection('requests<test>');
     QuerySnapshot snapshot = await requests.get();
@@ -132,9 +121,10 @@ class Control {
     documents.forEach((DocumentSnapshot element) {
       var tt = element.data() as Map<String,dynamic>;
       Request buffer = Request.fromJson(tt);
+      buffer.reqID = element.id;
       reqs.add(buffer);
-    }
-  );
+    });
+
   }
 
   //when instructor accepts, send a temp announcement to student user, somehow attach announcement to student rnum
@@ -144,7 +134,7 @@ class Control {
       reqs.retainWhere((request) => user.schedule!.any((course) => course.crn == request.crn));
       user.requests = reqs;
     }
-
+    
     //optional logic block for notifications to students about status change
     /*
     if (user.type!.compareTo('student') == 0){
@@ -152,14 +142,19 @@ class Control {
       user.requests = reqs;
     }
     */
-    //debugPrint('reqs after setting ------------');
-    //debugPrint(reqs.toString());
     
   //no need to depict rules for an student, students have no where to see a list of requests on their UI
   //status changes of requests will be depicted as announcements for them
   }
 
+  void updateRequest(Request req, String inp) {
+    CollectionReference requests = _instance.collection('requests<test>');
+    var documents = requests.doc(req.reqID);
 
+    documents.update({'status' : inp});
+  }
+
+  //make a refresh function? how to make that universal depending on the input
 
   Future<bool> setProfile(User auth)async{
     bool temp =false;
@@ -170,32 +165,15 @@ class Control {
     setAttendance(user!);
     await getRequests();
     setRequests(user!);
+    
+    //updateRequest(user!.requests![0],'approved');
 
     globals.runningUser = user;
     if(globals.runningUser != null){
       temp = true;
-    }
-    
-
-    //debugPrint('-----------------------attendance record-----------------------');
-    //debugPrint(globals.runningUser!.attends.toString());
-    
+    }    
     return temp;
   }
 
   
 }
-
-/*
-  Future<String> getType(String uid) async {
-    //_instance = FirebaseFirestore.instance;
-    String type='';
-    CollectionReference users = _instance.collection('Users');
-    
-    await users.doc(uid).get().then((DocumentSnapshot docsnap) {
-        type = docsnap.get('type');
-      });
-      //debugPrint('temp equals $type in getType method');
-    return type;
-  }
-*/

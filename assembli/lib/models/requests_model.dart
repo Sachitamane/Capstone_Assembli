@@ -9,17 +9,19 @@ part 'requests_model.g.dart';
 @JsonSerializable(explicitToJson: true)
 class Request {
   final int crn;    //use to create course object later w/ a function
-  final DateTime date;
+  final String date;
   final String reason;
   final String status;
   final int rnum;
+  String? reqID;
 
   Request({
     required this.crn,
     required this.date,
     required this.reason,
     required this.status,
-    required this.rnum
+    required this.rnum,
+    this.reqID
   });
 
   factory Request.fromJson(Map<String, dynamic> json) => _$RequestFromJson(json);
@@ -28,6 +30,6 @@ class Request {
 
   @override
   String toString(){
-    return 'Request info \ncrn: $crn\ndate: $date\nreason: $reason\nstatus: $status\nrnum: $rnum\n';
+    return 'Request info \ndocumentID: $reqID\ncrn: $crn\ndate: $date\nreason: $reason\nstatus: $status\nrnum: $rnum\n';
   }
 }

@@ -17,13 +17,13 @@ class UserRoute extends StatefulWidget {
 class _UserRouteState extends State<UserRoute> {
 
   Control ctrl = Control(authUser: globals.authUser!);//(authUser: FirebaseAuth.instance.currentUser);
-  late Future<bool> configured = ctrl.setProfile(globals.authUser!);
+  late Future<bool> configured;// = ctrl.setProfile(globals.authUser!);
 
   
   @override 
   void initState() {
     super.initState();
-   // configured = ctrl.setProfile(globals.authUser!);
+    configured = ctrl.setProfile(globals.authUser!);
   }
 
   @override

@@ -35,28 +35,6 @@ class MainPage extends StatelessWidget {
                                                           //depends on signIn response
       builder: (context, snapshot) {                      //snapshot is the returned result of authStateChanges(),
         if(snapshot.hasData ){
-//testers
-        //Control testrun = Control();
-        //test.setUser(snapshot.data!.uid);  
-          
-  /*      AppUser testUser = 
-            AppUser(
-            email: 'kimberly.fisher@ttu.edu',
-            rnum: 87654321,
-            type: 'student'
-          );
-  */  
-  /*
-        AppUser testUser = 
-          AppUser(
-            email: 'dana.allen@ttu.edu',
-            rnum: 12345678,
-            type: 'instructor'
-          );
-  */
-        
-        //debugPrint('instructor landingggggggg');
-        //return const InstructorLanding();
         return const UserRoute();     
 
         } else{

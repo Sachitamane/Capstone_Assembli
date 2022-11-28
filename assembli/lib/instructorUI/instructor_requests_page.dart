@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:assembli/services/dbservice.dart';
 import 'package:assembli/globals.dart' as globals;
 
 
@@ -15,6 +16,11 @@ class InstructorRequestsPage extends StatefulWidget {
 
 class _InstructorRequestsPageState extends State<InstructorRequestsPage> {
 
+  final Control ctrl = Control(
+                  authUser: globals.authUser,
+                  user: globals.runningUser
+                );
+
   @override
   Widget build(BuildContext context) => Scaffold(
         body: Column(
@@ -24,7 +30,8 @@ class _InstructorRequestsPageState extends State<InstructorRequestsPage> {
             //https://www.youtube.com/watch?v=IXBLP1bMeBE
             Expanded(
               child: ListView.builder(
-                itemCount: globals.runningUser!.requests!.length,
+                itemCount: globals.runningUser!.requests!
+                          .where((request) => request.status.compareTo('pending') == 0).length,
                 itemBuilder: (context, index) {
                   return Card(
                     margin: const EdgeInsets.all(16),
@@ -37,9 +44,10 @@ class _InstructorRequestsPageState extends State<InstructorRequestsPage> {
                                 Text(globals.runningUser!.requests![index].crn.toString(), style: const TextStyle(fontSize: 17)),
                           const SizedBox(width: 10, height: 50),
                           // Display rnum
-                          const Text('Rnum: ', style: TextStyle(fontSize: 17)),
+                          const Text('Student: ', style: TextStyle(fontSize: 17)),
                                 Text(globals.runningUser!.requests![index].rnum.toString(), style: const TextStyle(fontSize: 17)),
                           const SizedBox(width: 10),
+      //figure out how to fix overflowing text//////////////////////////////////////////////
                           // Display reason
                           const Text('Reason: ', style: TextStyle(fontSize: 17)),
                                 Text(globals.runningUser!.requests![index].reason, style: const TextStyle(fontSize: 17)),
@@ -62,8 +70,12 @@ class _InstructorRequestsPageState extends State<InstructorRequestsPage> {
                               ),
                               onPressed: () {
                                 // Update status in db for specific document
-                              //  documentSnapshot.reference
-                              //            .update({'status': 'approved'});
+                                ctrl.updateRequest(globals.runningUser!.requests![index], 'approved');
+                                setState(() { 
+                                  globals.runningUser!.requests!.removeAt(index);
+                                  }
+                                );
+
                               },
                               child: const Text('Approve', style: TextStyle(
                                 color: Colors.white, fontSize: 17),
@@ -84,8 +96,11 @@ class _InstructorRequestsPageState extends State<InstructorRequestsPage> {
                               ),
                               onPressed: () {
                                 // Update status in db for specific document
-                              //  documentSnapshot.reference
-                              //            .update({'status': 'denied'});
+                                ctrl.updateRequest(globals.runningUser!.requests![index], 'denied');
+                                setState(() { 
+                                  globals.runningUser!.requests!.removeAt(index);
+                                  }
+                                );
                               },
                               child: const Text('Deny', style: TextStyle(
                                 color: Colors.white, fontSize: 17),

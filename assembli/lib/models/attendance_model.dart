@@ -8,7 +8,7 @@ part 'attendance_model.g.dart';
 class Attendance{
   final int rnum;
   final int crn;
-  final DateTime date;
+  final String date;
   final bool present;
   final bool excused;     //toggle setting values of this in db based on present bool settings
 

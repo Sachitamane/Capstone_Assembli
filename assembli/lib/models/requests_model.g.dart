@@ -8,16 +8,18 @@ part of 'requests_model.dart';
 
 Request _$RequestFromJson(Map<String, dynamic> json) => Request(
       crn: json['crn'] as int,
-      date: DateTime.parse(json['date'] as String),
+      date: json['date'] as String,
       reason: json['reason'] as String,
       status: json['status'] as String,
       rnum: json['rnum'] as int,
+      reqID: json['reqID'] as String?,
     );
 
 Map<String, dynamic> _$RequestToJson(Request instance) => <String, dynamic>{
       'crn': instance.crn,
-      'date': instance.date.toIso8601String(),
+      'date': instance.date,
       'reason': instance.reason,
       'status': instance.status,
       'rnum': instance.rnum,
+      'reqID': instance.reqID,
     };

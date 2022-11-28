@@ -9,7 +9,7 @@ part of 'attendance_model.dart';
 Attendance _$AttendanceFromJson(Map<String, dynamic> json) => Attendance(
       rnum: json['rnum'] as int,
       crn: json['crn'] as int,
-      date: DateTime.parse(json['date'] as String),
+      date: json['date'] as String,
       present: json['present'] as bool,
       excused: json['excused'] as bool,
     );
@@ -18,7 +18,7 @@ Map<String, dynamic> _$AttendanceToJson(Attendance instance) =>
     <String, dynamic>{
       'rnum': instance.rnum,
       'crn': instance.crn,
-      'date': instance.date.toIso8601String(),
+      'date': instance.date,
       'present': instance.present,
       'excused': instance.excused,
     };
