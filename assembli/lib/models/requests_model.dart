@@ -13,7 +13,7 @@ class Request {
   final String reason;
   final String status;
   final int rnum;
-  String? reqID;
+  String? reqID;      //documentID shortcut, set by control class
 
   Request({
     required this.crn,

@@ -1,3 +1,4 @@
+import 'package:assembli/models/announcements_model.dart';
 import 'package:assembli/models/attendance_model.dart';
 import 'package:assembli/models/course_model.dart';
 import 'package:assembli/models/requests_model.dart';
@@ -16,6 +17,7 @@ class Control {
   List<Course> availCourses = [];     //all courses in the database in a list of course objects
   List<Attendance> attend = [];
   List<Request> reqs = [];
+  List<Announcement> announces = [];
 
   Control({
     this.authUser,
@@ -99,9 +101,9 @@ class Control {
       attend.retainWhere((attendance) => attendance.rnum == user.rnum);
       user.attends = attend; 
     }
+    
     //if user is an instructor, get attendance(documents) where instructor is listed as teacher
     //(aka is the rnum var of that course object through crn)
-    
     if(user.type!.compareTo('instructor')==0){
       attend.retainWhere((attendance) => user.schedule!.any((course) => course.crn == attendance.crn));
       user.attends = attend;    
@@ -129,24 +131,16 @@ class Control {
 
   //when instructor accepts, send a temp announcement to student user, somehow attach announcement to student rnum
   setRequests(AppUser user) {
-    
     if (user.type!.compareTo('instructor') == 0){
       reqs.retainWhere((request) => user.schedule!.any((course) => course.crn == request.crn));
       user.requests = reqs;
     }
-    
-    //optional logic block for notifications to students about status change
-    /*
-    if (user.type!.compareTo('student') == 0){
-      reqs.retainWhere(.....);
-      user.requests = reqs;
-    }
-    */
-    
-  //no need to depict rules for an student, students have no where to see a list of requests on their UI
-  //status changes of requests will be depicted as announcements for them
+    //no need to depict rules for an student, students have no where to see a list of requests on their UI
+    //status changes of requests will be depicted as announcements for them
   }
 
+  //instructor only
+  //utilized by approve/deny buttons on instructor request page
   void updateRequest(Request req, String inp) {
     CollectionReference requests = _instance.collection('requests<test>');
     var documents = requests.doc(req.reqID);
@@ -154,7 +148,37 @@ class Control {
     documents.update({'status' : inp});
   }
 
-  //make a refresh function? how to make that universal depending on the input
+  //students only
+  //createRequests//////////////////////////////////////////////////////////////////////////////
+
+
+  Future<void> getAnnouncements() async{
+    CollectionReference announcements = _instance.collection('announcements<test>');
+    QuerySnapshot snapshot = await announcements.get();
+
+    var documents = snapshot.docs;
+
+    documents.forEach((DocumentSnapshot element) {
+      var tt = element.data() as Map<String,dynamic>;
+      Announcement buffer = Announcement.fromJson(tt);
+      buffer.annID = element.id;
+      announces.add(buffer);
+    });
+  }
+
+  setAnnouncements(AppUser user) {
+    if (user.type!.compareTo('student') == 0){
+      announces.retainWhere((announcement) => user.schedule!.any((course) => course.crn == announcement.crn));
+      user.announcements = announces;
+    }
+
+    //debugPrint(user.announcements.toString());
+    //no need to depict rules for an instructor, instructors have no where to see a list of announcements on their UI
+
+  }
+
+
+
 
   Future<bool> setProfile(User auth)async{
     bool temp =false;
@@ -165,6 +189,8 @@ class Control {
     setAttendance(user!);
     await getRequests();
     setRequests(user!);
+    await getAnnouncements();
+    setAnnouncements(user!);
     
     //updateRequest(user!.requests![0],'approved');
 

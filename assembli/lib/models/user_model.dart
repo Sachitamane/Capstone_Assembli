@@ -1,4 +1,5 @@
 //manual model class, not serializable b/c control sets instances, not firestore directly
+import 'package:assembli/models/announcements_model.dart';
 import 'package:assembli/models/attendance_model.dart';
 import 'package:assembli/models/course_model.dart';
 import 'package:assembli/models/requests_model.dart';
@@ -12,6 +13,7 @@ class AppUser {
   List<Course>? schedule;       
   List<Attendance>? attends;    
   List<Request>? requests;
+  List<Announcement>? announcements;
 
 
   AppUser(

@@ -60,7 +60,12 @@ class InstructorProfilePage extends StatelessWidget {
             ElevatedButton(
               style: const ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll<Color>(Color.fromARGB(255, 179, 194, 168))),
-              onPressed: () => FirebaseAuth.instance.signOut(),
+              onPressed: () {
+                
+                FirebaseAuth.instance.signOut();
+                //globals.authUser = null;
+                
+              },
               child: const Text('Log Out',style: TextStyle(color: Colors.white, fontSize: 25)),
             ),
           ],
