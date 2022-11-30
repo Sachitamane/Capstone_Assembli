@@ -1,11 +1,9 @@
 import 'package:assembli/location/student_location.dart';
-import 'package:assembli/models/attendance_model.dart';
 import 'package:assembli/models/course_model.dart';
-import 'package:assembli/studentUI/student_announcements_page.dart';
+import 'package:assembli/studentUI/student_course_announcements.dart';
 import 'package:assembli/studentUI/student_course_attendance.dart';
 import 'package:assembli/studentUI/student_create_request.dart';
 import 'package:flutter/material.dart';
-//import 'package:assembli/location.dart';
 import 'package:assembli/globals.dart' as globals;
 
 class StudentCourseHome extends StatefulWidget {
@@ -150,21 +148,25 @@ class _StudentCourseHomeState extends State<StudentCourseHome> {
                 backgroundColor: MaterialStatePropertyAll<Color>(
                     Color.fromARGB(255, 179, 194, 168))),
             onPressed: () {
-              Navigator.pushAndRemoveUntil(
+              
+              Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return const StudentAnnouncementsPage();
-                  },
-                ),
-                (route) => false,
+                  builder: (context) {
+                    return StudentCourseAnnouncements(
+                      announceList: globals.runningUser!.announcements!
+                                .where((element) =>
+                                    element.crn == widget.course.crn)
+                                .toList()
+                    );
+                  }
+                )
               );
             },
             child: const Text('Announcements',
                 style: TextStyle(color: Colors.white, fontSize: 25)),
           ),
         ),
-
         //spacer
         const SizedBox(height: 35),
         //create request button
@@ -176,14 +178,16 @@ class _StudentCourseHomeState extends State<StudentCourseHome> {
                 backgroundColor: MaterialStatePropertyAll<Color>(
                     Color.fromARGB(255, 179, 194, 168))),
             onPressed: () {
-              Navigator.pushAndRemoveUntil(
+              Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return const StudentCreateRequest();
+                  builder: (context) {
+                    return StudentCreateRequest(
+                       crn : widget.course.crn,
+                       rnum: globals.runningUser!.rnum!
+                    );
                   },
                 ),
-                (route) => false,
               );
             },
             child: const Text('Request Excused Absence',

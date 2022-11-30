@@ -1,53 +1,52 @@
+import 'package:assembli/models/announcements_model.dart';
 import 'package:flutter/material.dart';
-import 'package:assembli/services/dbservice.dart';
-import 'package:assembli/globals.dart' as globals;
 
-// Displays all pending requests in "Request" collection
-// Can be approved or denied, db will update accordingly
+//specifically tailors this page to announcements only from 
+//the course selected (the class-caller)
+class StudentCourseAnnouncements extends StatefulWidget {
+  //const StudentCourseAnnouncements({super.key});
+  final List<Announcement> announceList;
 
-class InstructorRequestsPage extends StatefulWidget {
-  const InstructorRequestsPage({super.key});
+  const StudentCourseAnnouncements({
+    Key? key,
+    required this.announceList,
+
+  }) : super(key: key);
 
   @override
-  State<InstructorRequestsPage> createState() => _InstructorRequestsPageState();
+  State<StudentCourseAnnouncements> createState() => _StudentCourseAnnouncementsState();
 }
 
-class _InstructorRequestsPageState extends State<InstructorRequestsPage> {
-  final Control ctrl =
-      Control(authUser: globals.authUser, user: globals.runningUser);
+class _StudentCourseAnnouncementsState extends State<StudentCourseAnnouncements> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(
+      backgroundColor: const Color.fromARGB(255, 179, 194, 168),
+      title: const Text('Assembli')
+    ),
     body: Column(children: <Widget>[
       //turn to future builder maybe
       Expanded(
         child: ListView.builder(
-          itemCount: globals.runningUser!.requests!
-              .where((request) => request.status.compareTo('pending') == 0)
-              .length,
+          itemCount: widget.announceList.length,
+    
           itemBuilder: (context, index) {
             return Card(
               margin: const EdgeInsets.all(16),
               child: ListTile(
-                title: Wrap(/*mainAxisSize: MainAxisSize.min,*/ children: <Widget>[
-                  // Display cid
-                  const Text('Class: ', style: TextStyle(fontSize: 17)),
-                  Text(globals.runningUser!.requests![index].crn.toString(),
+                title: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                  //date
+                  const Text('Date: ', style: TextStyle(fontSize: 17)),
+                  Text(widget.announceList[index].date,
+                      style: const TextStyle(fontSize: 17)),//announcement message
+                  const Text('Message: ', style: TextStyle(fontSize: 17)),
+                  Text(widget.announceList[index].message,
                       style: const TextStyle(fontSize: 17)),
-                  const SizedBox(width: 10, height: 50),
-                  // Display rnum
-                  const Text('Student: ', style: TextStyle(fontSize: 17)),
-                  Text(globals.runningUser!.requests![index].rnum.toString(),
-                      style: const TextStyle(fontSize: 17)),
-                  const SizedBox(width: 10),
-                  //figure out how to fix overflowing text//////////////////////////////////////////////
-                  // Display reason
-                  const Text('Reason: ', style: TextStyle(fontSize: 17)),
-                  Text(globals.runningUser!.requests![index].reason,
-                      style: const TextStyle(fontSize: 17)),
+                  
                 ]),
                 // subtitle: row with approve/deny buttons
-                subtitle: Row(
+                /*subtitle: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     // Approve button
@@ -61,10 +60,10 @@ class _InstructorRequestsPageState extends State<InstructorRequestsPage> {
                         onPressed: () {
                           // Update status in db for specific document
                           ctrl.updateRequest(
-                              globals.runningUser!.requests![index],
+                              widget.announces![index],
                               'approved');
                           setState(() {
-                            globals.runningUser!.requests!.removeAt(index);
+                            widget.announces!.removeAt(index);
                           });
                         },
                         child: const Text(
@@ -85,10 +84,10 @@ class _InstructorRequestsPageState extends State<InstructorRequestsPage> {
                         onPressed: () {
                           // Update status in db for specific document
                           ctrl.updateRequest(
-                              globals.runningUser!.requests![index],
+                              widget.announces![index],
                               'denied');
                           setState(() {
-                            globals.runningUser!.requests!.removeAt(index);
+                            widget.announces!.removeAt(index);
                           });
                         },
                         child: const Text(
@@ -99,11 +98,13 @@ class _InstructorRequestsPageState extends State<InstructorRequestsPage> {
                     ),
                   ],
                 ),
+                */
               ),
             );
           },
         ),
       )
     ])
-  );
+  );   
+   
 }

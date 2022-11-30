@@ -2,35 +2,26 @@ import 'package:assembli/services/dbservice.dart';
 import 'package:flutter/material.dart';
 import 'package:assembli/globals.dart' as globals;
 
-
-// Takes user input and creates new document in "Request" collection
-// upon pressing "submit" button, in pending status
-
-class StudentCreateRequest extends StatefulWidget {
-  //const StudentCreateRequest({super.key});
+class InstructorCreateAnnouncements extends StatefulWidget {
+  //const InstructorCreateAnnouncements({super.key});
   final int crn;
-  final int rnum;
+  //final int rnum;
 
-  const StudentCreateRequest({
+  const InstructorCreateAnnouncements({
     Key? key,
     required this.crn,
-    required this.rnum
+    //required this.rnum
   }) : super(key: key);
 
   @override
-  State<StudentCreateRequest> createState() => _StudentCreateRequest();
+  State<InstructorCreateAnnouncements> createState() => _InstructorCreateAnnouncementsState();
 }
 
-class _StudentCreateRequest extends State<StudentCreateRequest> {
-  // Make controller for each field in the request document
+class _InstructorCreateAnnouncementsState extends State<InstructorCreateAnnouncements> {
   final dateController = TextEditingController();
-  final reasonController = TextEditingController();
+  final messageController = TextEditingController();
   final _formKey = GlobalKey<FormState>(); // Used to validate user input
 
-  /*
-  CollectionReference requests =
-      FirebaseFirestore.instance.collection('Request');
-  */
   Control ctrl  = Control(authUser: globals.authUser, user: globals.runningUser);
 
   @override
@@ -55,7 +46,7 @@ class _StudentCreateRequest extends State<StudentCreateRequest> {
                       color: Color.fromARGB(255, 141, 143, 140),
                       fontSize: 23,
                       fontStyle: FontStyle.italic),
-                  child: Text('Enter request details'),
+                  child: Text('Enter announcement details'),
                 ),
               ),
               // Get date
@@ -82,7 +73,7 @@ class _StudentCreateRequest extends State<StudentCreateRequest> {
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
-                  controller: reasonController,
+                  controller: messageController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Reason',
@@ -112,7 +103,7 @@ class _StudentCreateRequest extends State<StudentCreateRequest> {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
                         // Then, update to database
-                        ctrl.createRequest(widget.crn, dateController.text, reasonController.text, globals.runningUser!.rnum!, 'pending');
+                        ctrl.createAnnouncement(widget.crn, dateController.text, messageController.text);
                         
                       }
                     },

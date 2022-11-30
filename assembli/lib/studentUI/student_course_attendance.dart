@@ -25,6 +25,7 @@ class _StudentCourseAttendanceState extends State<StudentCourseAttendance> {
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       backgroundColor: const Color.fromARGB(255, 179, 194, 168),
+      title: const Text('Assembli')
     ),
     body: Column(
       children: <Widget>[

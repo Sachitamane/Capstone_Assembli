@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 ///////////////////////////////////////////////////////////////////
 import 'package:assembli/globals.dart' as globals;
+import 'package:flutter/scheduler.dart';
 
 class Control {
   final FirebaseFirestore _instance= FirebaseFirestore.instance;
@@ -148,8 +149,18 @@ class Control {
     documents.update({'status' : inp});
   }
 
-  //students only
-  //createRequests//////////////////////////////////////////////////////////////////////////////
+  //student only
+  //utilized by create request button on student course home page
+  void createRequest(int crn, String date, String reason, int rnum, String status){
+    CollectionReference requests = _instance.collection('requests<test>');
+    requests.add({'crn' : crn, 
+                  'date': date,
+                  'reason': reason,
+                  'rnum': rnum,
+                  'status': status, // Saved as pending status
+                        });
+    
+  }
 
 
   Future<void> getAnnouncements() async{
@@ -165,10 +176,25 @@ class Control {
       announces.add(buffer);
     });
   }
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   setAnnouncements(AppUser user) {
     if (user.type!.compareTo('student') == 0){
-      announces.retainWhere((announcement) => user.schedule!.any((course) => course.crn == announcement.crn));
+     // announces.retainWhere((announcement) => user.schedule!.any((course) => course.crn == announcement.crn));
+      List<int> temp = [];
+      user.schedule!.forEach((course) {
+        temp.add(course.crn);
+      });
+      debugPrint(temp.toString());
+      /*
+      announces.forEach((announcement) {
+        if (temp.contains(announcement.crn)){
+
+        } 
+      }
+      );
+      */
+          
+     
       user.announcements = announces;
     }
 
@@ -177,6 +203,14 @@ class Control {
 
   }
 
+  void createAnnouncement(int crn, String date, String message){
+    CollectionReference announcements = _instance.collection('announcements<test>');
+    announcements.add({'crn' : crn, 
+                  'date': date,
+                  'message': message,
+                  });
+
+  }
 
 
 

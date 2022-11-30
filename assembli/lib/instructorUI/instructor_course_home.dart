@@ -1,5 +1,5 @@
 import 'package:assembli/instructorUI/instructor_course_attendance.dart';
-import 'package:assembli/instructorUI/instructor_create_request.dart';
+import 'package:assembli/instructorUI/instructor_create_announcement.dart';
 import 'package:assembli/models/course_model.dart';
 import 'package:flutter/material.dart';
 import 'package:assembli/location/instructor_location.dart';
@@ -28,7 +28,30 @@ class _InstructorCourseHomeState extends State<InstructorCourseHome> {
           title: Text("CS - ${widget.course.cid} ${widget.course.cname}"),
         ),
         body: Column(children: <Widget>[
-          /*Padding(
+          //sized box to display the selected course
+        const SizedBox(height: 35),
+        Padding(
+          padding:
+              const EdgeInsets.only(top: 10, bottom: 10, left: 5, right: 10),
+          child: DefaultTextStyle(
+            style: const TextStyle(
+                color: Color.fromARGB(255, 123, 123, 123),
+                fontSize: 20,
+                fontStyle: FontStyle.italic),
+            child: Text("CS - ${widget.course.cid} ${widget.course.cname}"),
+          ),
+        ),
+
+        //divider
+        const Padding(
+          padding: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
+          child: Divider(
+            height: 20,
+            thickness: 2,
+            color: Color.fromARGB(255, 243, 113, 113),
+          ),
+        ),
+          Padding(
               padding: const EdgeInsets.all(12.0),
               child: Row(children: <Widget>[
                 
@@ -63,8 +86,20 @@ class _InstructorCourseHomeState extends State<InstructorCourseHome> {
                       },
                       child: const Text('Students present')),
                 )
-              ])),*/
-          //'log my attendance' button
+              ]
+          )
+        ),
+         //divider
+        const Padding(
+          padding: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
+          child: Divider(
+            height: 20,
+            thickness: 2,
+            color: Color.fromARGB(255, 243, 113, 113),
+          ),
+        ),
+
+          //'Open attendance' button
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: ElevatedButton(
@@ -94,14 +129,16 @@ class _InstructorCourseHomeState extends State<InstructorCourseHome> {
                   backgroundColor: MaterialStatePropertyAll<Color>(
                       Color.fromARGB(255, 179, 194, 168))),
               onPressed: () {
-                Navigator.pushAndRemoveUntil(
+                Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return const InstructorCreateAnnouncements();
+                    builder: (context) {
+                      return InstructorCreateAnnouncements(
+                        crn: widget.course.crn,
+                      
+                      );
                     },
                   ),
-                  (route) => false,
                 );
               },
               child: const Text('Make Announcement',

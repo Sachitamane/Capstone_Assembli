@@ -23,14 +23,15 @@ class _StudentAnnouncementsPage extends State<StudentAnnouncementsPage>{
       //turn to future builder maybe
       Expanded(
         child: ListView.builder(
-          itemCount: globals.runningUser!.announcements!.length,
+          itemCount: globals.runningUser!.announcements!
+                    .length,
               //.where((request) => request.status.compareTo('pending') == 0)
               //.length,
           itemBuilder: (context, index) {
             return Card(
               margin: const EdgeInsets.all(16),
               child: ListTile(
-                title: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                title: Wrap(/*mainAxisSize: MainAxisSize.min, */children: <Widget>[
                   // Display cid
                   const Text('Class: ', style: TextStyle(fontSize: 17)),
                   Text(globals.runningUser!.announcements![index].crn.toString(),
