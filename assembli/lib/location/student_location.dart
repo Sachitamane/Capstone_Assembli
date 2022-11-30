@@ -33,12 +33,15 @@ class _LocationFinderState extends State<LocationFinder> {
   bool _valid = false;
   // checker to make sure _valid has been evaluated properly by _checkPosition()
   bool _cancheck = false;
+  //datbase pull has occured
+  bool DBdone = false;
   // geopoint for classroom in DB
   GeoPoint classroomCoordinates = GeoPoint(0, 0);
   // code for classroom in DB
   int classroomCode = 0;
   // obtains classroom code input
   final myController = TextEditingController();
+  late bool classOpen = false;
   // reference to collection in DB
   //edit Dylan Lowman
   CollectionReference classroom =
@@ -171,6 +174,8 @@ class _LocationFinderState extends State<LocationFinder> {
                           snapshot.data!.data() as Map<String, dynamic>?;
                       classroomCoordinates = data?['coordinate'];
                       classroomCode = data?['code'];
+                      classOpen = data?['open'];
+                      DBdone = true;
                     }
                     return Container();
                   })),
@@ -185,6 +190,7 @@ class _LocationFinderState extends State<LocationFinder> {
                             fontWeight: FontWeight.w900,
                             fontStyle: FontStyle.italic)),
                   )),
+              classOpen ?
               Container(
                   height: 100,
                   width: 250,
@@ -209,7 +215,25 @@ class _LocationFinderState extends State<LocationFinder> {
                                     fontSize: 20,
                                     fontWeight: FontWeight.w900,
                                     color: Colors.red)),
-                  )),
+                  )): 
+                    DBdone ?
+                    Column(children: <Widget>[
+                    Container(child: Text("The Instructor has not yet opened class attendance yet ...",
+                    style: TextStyle(
+                                fontSize: 25, fontWeight: FontWeight.w900)),),
+                    Container(height:100,width:250),
+                     Container(width: 250,height: 200,
+                      child: SimpleTimer(
+                              status: TimerStatus.start,
+                              duration: Duration(seconds: 5),
+                              onEnd: () => Navigator.pop(
+                                context,
+                              ),
+                            ),),
+                  ],): Container(),
+
+              classOpen ?
+              Column(children: <Widget>[
               Padding(
                   padding: EdgeInsets.all(30),
                   child: _cancheck
@@ -318,13 +342,13 @@ class _LocationFinderState extends State<LocationFinder> {
                             ])
                           : SimpleTimer(
                               status: TimerStatus.start,
-                              duration: Duration(seconds: 10),
+                              duration: Duration(seconds: 5),
                               onEnd: () => Navigator.pop(
                                 context,
                               ),
                             ),
                 ),
-              ),
+              )]):Container()
             ],
           )),
         ));

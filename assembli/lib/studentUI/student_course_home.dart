@@ -4,6 +4,8 @@ import 'package:assembli/studentUI/student_course_announcements.dart';
 import 'package:assembli/studentUI/student_course_attendance.dart';
 import 'package:assembli/studentUI/student_create_request.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:assembli/location.dart';
 import 'package:assembli/globals.dart' as globals;
 
 class StudentCourseHome extends StatefulWidget {

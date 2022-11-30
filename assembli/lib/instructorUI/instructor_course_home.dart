@@ -4,6 +4,7 @@ import 'package:assembli/models/course_model.dart';
 import 'package:flutter/material.dart';
 import 'package:assembli/location/instructor_location.dart';
 import 'package:assembli/globals.dart' as globals;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:assembli/analytics/attendance_analytics.dart';
 
 class InstructorCourseHome extends StatefulWidget {
@@ -20,6 +21,43 @@ class InstructorCourseHome extends StatefulWidget {
 }
 
 class _InstructorCourseHomeState extends State<InstructorCourseHome> {
+  //controls whether or not the button is open attendance or close attendance
+  bool open = false;
+
+  CollectionReference classroom =
+      FirebaseFirestore.instance.collection('CourseAuthFactors');
+
+  //used to change attendance button to CLOSE
+  void changeToCloseAttendance() {
+
+    setState(() {
+        open = true;
+    });
+  }
+
+  //used to change attendance button to OPEN
+  void changeToOpenAttendance() {
+
+    setState(() {
+        open = false;
+    });
+  }
+
+  // updates the open status of the classroom to true
+  Future<void> updateOpenStatus() async {
+    return classroom.doc(widget.course.crn.toString()).update({
+      'open': true
+    });
+  }
+
+  // updates the open status of the classroom to false
+  Future<void> updateCloseStatus() async {
+    return classroom.doc(widget.course.crn.toString()).update({
+      'open': false
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +66,24 @@ class _InstructorCourseHomeState extends State<InstructorCourseHome> {
           title: Text("CS - ${widget.course.cid} ${widget.course.cname}"),
         ),
         body: Column(children: <Widget>[
+          FutureBuilder<DocumentSnapshot>(
+                  future: classroom.doc(widget.course.crn.toString()).get(),
+                  builder: ((BuildContext context,
+                      AsyncSnapshot<DocumentSnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      debugPrint("error!");
+                    }
+                    if (snapshot.hasData && !snapshot.data!.exists) {
+                      debugPrint("data exists");
+                    }
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      Map<String, dynamic>? data =
+                          snapshot.data!.data() as Map<String, dynamic>?;
+                      open = data?['open'];
+                    }
+                    return Container();
+                  })),
+          
           //sized box to display the selected course
         const SizedBox(height: 35),
         Padding(
@@ -86,20 +142,9 @@ class _InstructorCourseHomeState extends State<InstructorCourseHome> {
                       },
                       child: const Text('Students present')),
                 )
-              ]
-          )
-        ),
-         //divider
-        const Padding(
-          padding: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
-          child: Divider(
-            height: 20,
-            thickness: 2,
-            color: Color.fromARGB(255, 243, 113, 113),
-          ),
-        ),
-
-          //'Open attendance' button
+              ])),
+          //OPEN AND CLOSE ATTENDANCE button EDIT MAKE IT OPEN AND CLOSE UI BASED ON CLASSROOM STATUS
+          !open ?
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: ElevatedButton(
@@ -107,6 +152,8 @@ class _InstructorCourseHomeState extends State<InstructorCourseHome> {
                   backgroundColor: MaterialStatePropertyAll<Color>(
                       Color.fromARGB(255, 179, 194, 168))),
               onPressed: () {
+                updateOpenStatus();
+                changeToCloseAttendance();
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -117,6 +164,20 @@ class _InstructorCourseHomeState extends State<InstructorCourseHome> {
                 );
               },
               child: const Text('Open Attendance',
+                  style: TextStyle(color: Colors.white, fontSize: 25)),
+            ),
+          ) :
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: ElevatedButton(
+              style: const ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll<Color>(
+                      Color.fromARGB(255, 179, 194, 168))),
+              onPressed: () {
+                updateCloseStatus();
+                changeToOpenAttendance();
+              },
+              child: const Text('Close Attendance',
                   style: TextStyle(color: Colors.white, fontSize: 25)),
             ),
           ),
